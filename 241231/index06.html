@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      main {
+        width: 100%;
+        height: 100vh;
+        video {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          position: relative;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+        }
+        .desc {
+          position: absolute;
+          top: 35%;
+          left: 10%;
+          z-index: 2;
+          color: #fff;
+          width: 500px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <video src="./Contents/Downloads/video.mp4" autoplay loop muted></video>
+      <div class="desc">
+        <h2>My portforlio</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
+          delectus corrupti mollitia, commodi qui quod. Voluptate amet dolore
+          laboriosam est deserunt. Porro quos quas, reprehenderit in alias
+          repudiandae ea nobis.
+        </p>
+      </div>
+    </main>
+    <!-- <audio src="./Contents/Downloads/audio.mp4" controls autoplay loop></audio> -->
+  </body>
+</html>

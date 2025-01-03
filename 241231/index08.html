@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkbox and Radio Example</title>
+    <style>
+      textarea {
+        resize: none;
+      }
+    </style>
+    <!-- <style>
+      .container {
+        border: 1px solid #000; /* 테두리 스타일 */
+        padding: 20px; /* 내부 여백 */
+        width: 500px; /* 너비 설정 */
+        margin-bottom: 40px;
+      }
+      .container label {
+        display: block; /* 각 항목이 새 줄에 표시되도록 */
+        margin-bottom: 5px; /* 항목 간 간격 */
+      }
+      .container .title {
+        position: absolute; /* 절대 위치 설정 */
+        top: -10px; /* 컨테이너 위로 이동 */
+        left: 10px; /* 컨테이너 왼쪽으로 이동 */
+        background-color: #fff; /* 배경색 설정 */
+        padding: 0 5px; /* 글자 주변 여백 */
+        font-weight: bold; /* 글자 굵게 */
+      }
+    </style> -->
+  </head>
+  <body>
+    <form action="#" method="post">
+      <fieldset>
+        <legend><p>신청과목</p></legend>
+        <p>이 달에 신청할 과목을 선택하세요! (*1과목만 선택가능)</p>
+        <label for="english01">
+          <input type="radio" name="subject" id="english01" />회화
+        </label>
+        <label for="english02">
+          <input type="radio" name="subject" id="english02" />문법
+        </label>
+        <label for="english03">
+          <input type="radio" name="subject" id="english03" />작문
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend><p>메일링</p></legend>
+        <p>메일로 받고싶은 뉴스 주제를 선택해 주세요! (*복수 선택 가능)</p>
+        <label for="news01">
+          <input type="checkbox" name="news01" id="news01" />해외
+        </label>
+        <label for="news02">
+          <input type="checkbox" name="news02" id="news02" />5분
+        </label>
+        <label for="news03">
+          <input type="checkbox" name="news03" id="news03" />모닝
+        </label>
+      </fieldset>
+      <p>하고 싶은 이야기</p>
+      <textarea
+        name="mystory"
+        id="mystory"
+        placeholder="당신의 이야기"
+        rows="10"
+        cols="50"
+      ></textarea
+      ><br />
+      <h4>오늘 저녁 분식은 어떠세요?</h4>
+      <select name="food" id="food">
+        <option value="none" selected disabled>
+          원하시는 메뉴를 선택해 주세요
+        </option>
+        <option value="food01">김밥</option>
+        <option value="food02">떡볶이</option>
+        <option value="food03">순대</option>
+        <option value="food04">붕어빵</option>
+      </select>
+    </form>
+    <!-- <form>
+      <div class="container">
+        <p>이 달에 신청할 과목을 선택하세요! (*1과목만 선택가능)</p>
+        <label>
+          <input type="radio" name="choice" value="A" />회화
+          <input type="radio" name="choice" value="B" />문법
+          <input type="radio" name="choice" value="B" />작문
+        </label>
+      </div>
+      <div class="container">
+        <p>메일로 받고싶은 뉴스 주제를 선택해 주세요 (*복수 선택 가능)</p>
+        <label>
+          <input type="checkbox" name="option" value="1" />해외단신
+          <input type="checkbox" name="option" value="2" />5분회화
+          <input type="checkbox" name="option" value="2" />모닝팝스
+        </label>
+      </div>
+    </form> -->
+  </body>
+</html>

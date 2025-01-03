@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=\, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      p {
+        counter-increment: num;
+        &::before {
+          content: counter(num) ".";
+        }
+        &::after {
+          content: "- " attr(data-page) "page";
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Lorem ipsum dolor sit amet</h1>
+    <p data-page="52">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
+      reiciendis quasi accusamus, ipsam id non vitae nesciunt nobis tempore
+      soluta voluptatum, deleniti a tenetur! Dolore dolorum blanditiis omnis
+      quod quis!
+    </p>
+    <p data-page="273">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt animi
+      perspiciatis corporis eligendi suscipit optio odio recusandae alias,
+      numquam aliquid explicabo id, quibusdam, esse hic. Sed distinctio
+      praesentium at beatae. Recusandae accusantium et dolorem modi
+      reprehenderit repellendus. Voluptatum, odit reprehenderit veniam
+      repudiandae nisi veritatis architecto, eveniet tempora porro facere
+      molestias a harum qui. Ipsa recusandae eveniet sit, ut accusantium
+      cupiditate. Quis ipsum ducimus sapiente magni earum doloribus quia, unde
+      dolorum aut asperiores, id quidem laudantium accusantium deleniti corrupti
+      aliquam ea quae nihil labore at? Doloremque nam natus sint tempora
+      ducimus. Reiciendis saepe fugiat autem illo explicabo molestiae accusamus,
+      rerum amet mollitia tempora, ullam ab consequuntur hic totam porro
+      suscipit ut necessitatibus minus esse dolor accusantium aliquam nisi!
+      Quia, cupiditate deleniti.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi numquam in
+      architecto corporis id placeat dolores rem rerum sapiente cumque et
+      laudantium quos distinctio ipsam incidunt molestias, iure ex magnam?
+    </p>
+  </body>
+</html>
