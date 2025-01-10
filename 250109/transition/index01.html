@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      #graph {
+        width: 610px;
+        border: 3px solid #000;
+        .bar {
+          width: 10px;
+          height: 50px;
+          background: orange;
+          margin: 5px;
+          /* transition-duration: 1s, 5s; */
+          &:nth-child(1) {
+            transition: background 1s linear 0s, width 5s linear 0s;
+          }
+          &:nth-child(2) {
+            transition: background 1s linear 0s, width 5s ease 1s;
+          }
+          &:nth-child(3) {
+            transition: background 1s linear 0s, width 5s ease-in 2s;
+          }
+          &:nth-child(4) {
+            transition: background 1s linear 0s, width 5s ease-out 3s;
+          }
+          &:nth-child(5) {
+            transition: background 1s linear 0s, width 5s ease-in-out 4s;
+          }
+        }
+        &:hover .bar {
+          &:nth-child(1) {
+            width: 100px;
+            background: crimson;
+          }
+          &:nth-child(2) {
+            width: 300px;
+            background: dodgerblue;
+          }
+          &:nth-child(3) {
+            width: 400px;
+            background: yellowgreen;
+          }
+          &:nth-child(4) {
+            width: 200px;
+            background: yellow;
+          }
+          &:nth-child(5) {
+            width: 400px;
+            background: pink;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS3 Transition Graph</h1>
+    <div id="graph">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </body>
+</html>
