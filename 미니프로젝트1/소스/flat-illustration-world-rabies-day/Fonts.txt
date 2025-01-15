@@ -1,9 +1,0 @@
-Fonts used in this design:
-
-Font: Solway
-Author: Mariya V. Pigoulevskaya,The Northern Block
-Url: https://fonts.google.com/specimen/Solway
-
-Font: Lilita One
-Author: Juan Montoreano
-Url: https://fonts.google.com/specimen/Lilita+One
