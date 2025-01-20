@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .wrapper {
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 300px 1fr 300px;
+        grid-template-rows: 100px 1fr 100px;
+        grid-gap: 10px;
+        header {
+          grid-row: 1;
+          grid-column: 1 / span 3;
+          background: skyblue;
+          text-align: center;
+          line-height: 100px;
+        }
+        nav,
+        .num,
+        .aside {
+          border: 1px solid #fff;
+          display: grid;
+          justify-items: center;
+          align-items: center;
+          background: skyblue;
+          &.num {
+            display: flex;
+            justify-content: space-around;
+          }
+          &.aside {
+            text-align: center;
+            grid-template-rows: 200px 1fr 200px;
+            background: skyblue;
+            aside {
+              border-bottom: 10px solid #fff;
+              display: block;
+              width: 100%;
+              height: 100%;
+              line-height: 200px;
+              &:nth-child(2) {
+                line-height: 500px;
+              }
+              &:nth-child(3) {
+                border-bottom: 0px;
+              }
+            }
+          }
+        }
+      }
+      footer {
+        grid-row: 3;
+        grid-column: 1 / span 3;
+        background: skyblue;
+        text-align: center;
+        line-height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrapper">
+      <header>header</header>
+      <nav>menu</nav>
+      <div class="num">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+      </div>
+      <div class="aside">
+        <aside>top</aside>
+        <aside>aside</aside>
+        <aside>bottom</aside>
+      </div>
+      <footer>footer</footer>
+    </main>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .wrapper {
+        display: grid;
+        width: 100%;
+        height: 100vh;
+        grid-gap: 5px;
+        grid-template-rows: 100px 150px 1fr 150px 100px;
+        grid-template-columns: 300px 1fr 300px;
+        grid-template-areas:
+          "header header header"
+          "menu section top"
+          "menu section aside"
+          "menu section bottom"
+          "footer footer footer";
+        div {
+          background: skyblue;
+          display: grid;
+          justify-items: center;
+          align-items: center;
+          border: 1px solid #000;
+          &.header {
+            grid-area: header;
+          }
+          &.menu {
+            grid-area: menu;
+          }
+          &.section {
+            grid-area: section;
+            display: grid;
+            grid-template-columns: repeat(4, auto);
+          }
+          &.top {
+            grid-area: top;
+          }
+          &.aside {
+            grid-area: aside;
+          }
+          &.bottom {
+            grid-area: bottom;
+          }
+          &.footer {
+            grid-area: footer;
+          }
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="wrapper">
+      <div class="header">Header</div>
+      <div class="menu">menu</div>
+      <div class="section">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+      </div>
+      <div class="top"></div>
+      <div class="aside"></div>
+      <div class="bottom"></div>
+      <div class="footer"></div>
+    </main>
+  </body>
+</html> -->
