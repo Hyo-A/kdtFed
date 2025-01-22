@@ -13,25 +13,17 @@
 
       .parent {
         display: grid;
-        grid-template-columns: auto auto auto;
+        width: 600px;
         grid-gap: 10px;
-        height: 300px;
+        height: 600px;
+        grid-template-rows: 150px 290px 150px;
+
         div {
           border: 1px solid #000;
           background: dodgerblue;
-          &:nth-child(1) {
-            background: crimson;
-            grid-column: 1 / span 2;
-            grid-row: 1;
-          }
-          &:nth-child(2) {
+          &:nth-child(4) {
             background: yellowgreen;
-            grid-column-start: 3;
-            grid-row: 1 / span 2;
-          }
-          &:nth-child(5) {
-            background: violet;
-            grid-row: 3;
+            grid-row: 2;
             grid-column: 1 / span 3;
           }
         }
@@ -45,6 +37,8 @@
       <div>3</div>
       <div>4</div>
       <div>5</div>
+      <div>6</div>
+      <div>7</div>
     </div>
   </body>
 </html>
