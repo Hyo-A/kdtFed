@@ -12,8 +12,8 @@
 // }
 
 // for (let marvel of marvels) {
-//   //   console.log(marvel);
-//   // }
+//     console.log(marvel);
+//   }
 
 const arrs = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
 

@@ -20,38 +20,38 @@
 // obj 안에 온점 표기법으로 fnc라는 키에 할당되어진 함수를 찾아옴
 // 메서드이기도 함 / 메서드 : 방법론
 
-// const num = parseInt(prompt("더하고 싶은 숫자를 입력하세요"));
+const num = parseInt(prompt("더하고 싶은 숫자를 입력하세요"));
 
-// function calcSum(n) {
-//   let sum = 0;
-//   for (let i = 1; i <= num; i++) {
-//     sum += i;
-//     // 여기 이해안댐
-//   }
-//   // console.log(`1부터 10까지 더하면 ${sum}입니다.`);
-//   return sum;
-//   // sum이라는 변수를 반환함
-//   // sum이라는 결과값을 밖에서도 쓰고싶다면? "반환" => return문
-// }
+function calcSum(n) {
+  let sum = 0;
+  for (let i = 1; i <= num; i++) {
+    sum += i;
+    // 여기 이해안댐
+  }
+  // console.log(`1부터 10까지 더하면 ${sum}입니다.`);
+  return sum;
+  // sum이라는 변수를 반환함
+  // sum이라는 결과값을 밖에서도 쓰고싶다면? "반환" => return문
+}
 
 // calcSum(10);
 // console.log(`1부터 ${num}까지 더하면 ${calcSum(10)}입니다.`);
 // ${calcSum(10)}은 보기에는 함수같아보이는데 위에서 sum을 변수로 반환했기 때문에 ${calcSum(10)} 안에 calcSun(10)은 변수임
 
-function calcSum(n) {
-  let sum = 0;
-  for (let i = 1; i <= n; i++) {
-    sum += i;
-  }
-  return sum;
-}
+// function calcSum(n) {
+//   let sum = 0;
+//   for (let i = 1; i <= n; i++) {
+//     sum += i;
+//   }
+//   return sum;
+// }
 
-// const num = 5;
-// 이녀석은 전역변수가 X script scope변수다
-var num = 5;
-// 이녀석은 전역변수다
+// // const num = 5;
+// // 이녀석은 전역변수가 X script scope변수다
+// var num = 5;
+// // 이녀석은 전역변수다
 
-console.log(`1부터 ${num}까지 더한 결과값은 ${calcSum(num)}입니다`);
+// console.log(`1부터 ${num}까지 더한 결과값은 ${calcSum(num)}입니다`);
 // calcSum(10);
 
 //
