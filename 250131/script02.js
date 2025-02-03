@@ -32,14 +32,14 @@
 //   }
 // });
 
-const toggleBtn = document.querySelector("button");
+// const toggleBtn = document.querySelector("button");
 
-toggleBtn.addEventListener("click", () => {
-  console.log("click");
-  document.body.classList.toggle("dark");
-  if (!document.bodt.classList.contains("dark")) {
-    toggleBtn.innerText = "다크모드로 바꾸기";
-  } else {
-    toggleBtn.innerText = "라이트모드로 바꾸기";
-  }
-});
+// toggleBtn.addEventListener("click", () => {
+//   // console.log("click");
+//   document.body.classList.toggle("dark");
+//   if (!document.body.classList.contains("dark")) {
+//     toggleBtn.innerText = "다크모드로 바꾸기";
+//   } else {
+//     toggleBtn.innerText = "라이트모드로 바꾸기";
+//   }
+// });

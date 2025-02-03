@@ -22,7 +22,7 @@
 
 // let x = 10;
 // let y = 4;
-// let resual;
+// let result;
 
 // let x = 10,
 //   y = 4,
@@ -50,13 +50,13 @@
 // y %= x;
 // console.log(y);
 
-let str = "<table border='1'>";
-str += "<tr>";
-str += "<td>1</td><td>2</td><td>3</td>";
-str += "</tr>";
-str += "</table>";
+// let str = "<table border='1'>";
+// str += "<tr>";
+// str += "<td>1</td><td>2</td><td>3</td>";
+// str += "</tr>";
+// str += "</table>";
 
-document.write(str);
+// document.write(str);
 
 // console.log(3 == "3");
 // console.log(3 === "3");
@@ -70,9 +70,9 @@ document.write(str);
 // console.log(a <= 10 || b > 20);
 // console.log(a <= 10 && b > 20);
 
-// let a = 10,
-//   b = 3;
+let a = 10,
+  b = 3;
 
-// let result = a < b ? "Javascript" : "Typescript";
+let result = a < b ? "Javascript" : "Typescript";
 
-// console.log(result);
+console.log(result);

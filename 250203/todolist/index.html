@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
+    <title>ToDoList</title>
+  </head>
+  <body>
+    <form name="todolist" method="post">
+      <h2>Todo List</h2>
+      <div id="user-input">
+        <input
+          type="text"
+          name="todo-item"
+          id="todo-item"
+          placeholder="오늘 할 일을 입력하세요!"
+        />
+        <input id="accept" type="submit" value="등록" />
+        <!-- type="submit"는 값을 서버로 보내는 속성을 디폴트로 가지고 있따 -->
+      </div>
+      <ul></ul>
+    </form>
+  </body>
+</html>

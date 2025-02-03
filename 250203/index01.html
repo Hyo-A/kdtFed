@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.01.css" />
+    <script defer src="./script01.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <main id="container">
+      <h2>할인 가격 계산 프로그램 만들기</h2>
+      <form name="price-system">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/6188/6188700.png"
+          alt="sale"
+        />
+        <ul>
+          <li>
+            <label for="origin-price">원래가격 </label>
+            <input id="origin-price" type="text" name="origin-price" />원
+          </li>
+          <li>
+            <label for="rate">할인률 </label>
+            <input id="rate" type="text" name="rate" />원
+          </li>
+          <li>
+            <input id="btn" type="button" value="할인 가격 계산하기" />
+          </li>
+        </ul>
+      </form>
+      <div id="result"></div>
+    </main>
+  </body>
+</html>
