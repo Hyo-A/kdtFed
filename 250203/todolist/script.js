@@ -61,9 +61,12 @@ const handler = (event) => {
     id: Date.now(),
     text: userInput.value,
   };
-  todos.push(todo);
-  addItem(todo);
-  save();
+
+  if (todo.text !== "") {
+    todos.push(todo);
+    addItem(todo);
+    save();
+  }
   userInput.value = "";
 };
 
