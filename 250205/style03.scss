@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  // overflow-x: hidden;
+}
+
+button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 12px 15px;
+  border: none;
+  background: #639;
+  color: #fff;
+  transition: all 0.3s;
+  &.active {
+    transform: translateX(-110px);
+  }
+}
+
+nav {
+  // position: absolute;
+  // absolute는 위치의 정보를 총 넓이에 가지고 간다
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: #639;
+  color: #fff;
+  height: 100vh;
+  padding: 3rem;
+  transform: translateX(100%);
+  transition: all 0.3s;
+  &.active {
+    transform: translateX(0);
+  }
+  li {
+    padding: 1rem 0;
+  }
+}
