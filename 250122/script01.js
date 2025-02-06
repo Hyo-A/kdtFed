@@ -29,11 +29,11 @@
 //   stars--;
 // }
 
-let stars = parseInt(prompt("별의 개수:"));
+// let stars = parseInt(prompt("별의 개수:"));
 
-do {
-  document.write("💥");
-  stars--;
-} while (stars > 0);
+// do {
+//   document.write("💥");
+//   stars--;
+// } while (stars > 0);
 // 일단 해라! 그다음에 조건이 맞는지 판단해라
 // 그렇기 때문에 별이 하나는 나오고 나서 조건에 부합하지 않는다 판단하여 do가 진행X

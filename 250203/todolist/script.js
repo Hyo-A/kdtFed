@@ -33,7 +33,7 @@ const save = () => {
 
 const delItem = (event) => {
   const target = event.target.parentElement;
-  todos = todos.filter((todo) => todo.id != target.id);
+  todos = todos.filter((f) => f.id != target.id);
   // 조건이 참인애들만 모아서 다시 배열해준다
   save();
   target.remove();
