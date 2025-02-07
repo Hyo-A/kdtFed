@@ -12,6 +12,24 @@ body {
   font-size: 1.6rem;
 }
 
+#plus {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  background: url("https://i.pinimg.com/originals/91/81/c9/9181c9f4c8be64b432a86d560fedf208.gif") center/cover no-repeat;
+  opacity: 0.3;
+}
+
+#plus2 {
+  position: absolute;
+  z-index: 1;
+  bottom: -70px;
+  right: -40px;
+}
+#plus2 img {
+  width: 150px;
+}
+
 #container {
   height: 100vh;
   background: url("https://i.pinimg.com/originals/1d/32/cd/1d32cdd59cc31aa291ba4f46e7a854ed.gif") center/cover no-repeat;
@@ -22,7 +40,7 @@ body {
 #container #outer {
   width: 807px;
   height: 544px;
-  background: url(./contents/outerbox.png) center/cover no-repeat;
+  background: url(./contents/diarycover.png) center/cover no-repeat;
   position: relative;
 }
 #container #outer #inner {
@@ -32,6 +50,7 @@ body {
 
 /*=== inner-left ===*/
 #inner-left {
+  position: relative;
   width: 203px;
   height: 472px;
   display: flex;
@@ -51,12 +70,12 @@ body {
 #inner-left .inner-left-body {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   width: 100%;
   height: 100%;
   border: 1px solid #808080;
   border-radius: 14px;
-  padding: 26px;
+  padding: 20px 26px 26px;
+  background: #f8e8ee;
 }
 #inner-left .inner-left-body .left-body-title {
   width: 100%;
@@ -80,7 +99,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
 }
 #inner-left .inner-left-body .left-body-profile .profile-detail {
   display: flex;
@@ -88,13 +107,36 @@ body {
   gap: 6px;
   cursor: pointer;
 }
+#inner-left .inner-left-body .left-body-profile .profile-detail i {
+  color: #ee619c;
+}
+#inner-left .inner-left-body .left-body-profile .profile-detail .detailInfo span {
+  color: #ee619c;
+  font: bold 1.4rem/1 "arial";
+}
+#inner-left .inner-left-body .left-body-profile .profile-detail .detailInfo p {
+  font-size: 1.2rem;
+}
+#inner-left .inner-left-body .left-body-footer {
+  position: absolute;
+  bottom: 20px;
+}
 #inner-left .inner-left-body .left-body-footer .footer-feel {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 #inner-left .inner-left-body .left-body-footer .footer-feel .feel-title {
+  font-size: 1.6rem;
   font-weight: bold;
+}
+#inner-left .inner-left-body .left-body-footer .footer-feel form {
+  width: 100%;
+}
+#inner-left .inner-left-body .left-body-footer .footer-feel form select {
+  width: 100%;
+  height: 20px;
+  font-size: 1.1rem;
 }
 
 /*=== inner-right ===*/
@@ -137,7 +179,7 @@ body {
   height: 110px;
   position: absolute;
   top: 20%;
-  right: -70px;
+  right: -69px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -147,7 +189,7 @@ body {
   color: #fff;
   text-align: center;
   line-height: 30px;
-  border: 1px solid #000;
+  border: 2px solid #000;
   border-radius: 0 10px 10px 0;
   font-size: 1.6rem;
   cursor: pointer;

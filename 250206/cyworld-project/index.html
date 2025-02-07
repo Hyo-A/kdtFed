@@ -14,8 +14,15 @@
     <title>기분좋은 친구, cyworld</title>
   </head>
   <body>
+    <div id="plus"></div>
     <main id="container">
       <div id="outer">
+        <div id="plus2">
+          <img
+            src="https://i.pinimg.com/originals/06/a4/02/06a40213ba023729f4957e9882cb4492.gif"
+            alt="ham"
+          />
+        </div>
         <div id="inner">
           <section id="inner-left">
             <div class="inner-left-header">
@@ -23,7 +30,7 @@
                 <span>TODAY</span>
                 <span class="zero">0</span>
                 <span>| TOTAL</span>
-                <span>1234</span>
+                <span class="total">1234</span>
               </div>
             </div>
             <div class="inner-left-body">
@@ -34,19 +41,31 @@
               <div class="left-body-profile">
                 <div class="profile-detail">
                   <i class="fas fa-user-astronaut"></i>
-                  <span>name</span>
+                  <div class="detailInfo">
+                    <span>name</span>
+                    <p>효바</p>
+                  </div>
                 </div>
                 <div class="profile-detail">
                   <i class="fas fa-phone"></i>
-                  <span>Tel</span>
+                  <div class="detailInfo">
+                    <span>Tel</span>
+                    <p>010.5701.0679</p>
+                  </div>
                 </div>
                 <div class="profile-detail">
                   <i class="fas fa-at"></i>
-                  <span>email</span>
+                  <div class="detailInfo">
+                    <span>email</span>
+                    <p>janggydk@daum.net</p>
+                  </div>
                 </div>
                 <div class="profile-detail">
                   <i class="fab fa-instagram"></i>
-                  <span>instagram</span>
+                  <div class="detailInfo">
+                    <span>instagram ID</span>
+                    <p>janghyoa</p>
+                  </div>
                 </div>
               </div>
               <div class="left-body-footer">
@@ -54,9 +73,7 @@
                   <div class="feel-title">오늘의 기분🍓</div>
                   <form name="feel-list" action="#" method="post">
                     <select name="emotion" id="emotion">
-                      <option disabled selected>
-                        오늘의 기분을 선택하세요
-                      </option>
+                      <option disabled selected>오늘 기분을 선택하세요</option>
                       <option value="happy">너무 행복한 날🥰</option>
                       <option value="sad">가슴이 아픈 날😔</option>
                       <option value="angry">앵그리버드 모드👿</option>
@@ -75,7 +92,7 @@
               </div>
             </div>
             <div class="inner-right-body">
-              <iframe id="contentFrame" src="./game.html"></iframe>
+              <iframe id="contentFrame" src="./jukebox.html"></iframe>
             </div>
           </section>
           <section id="navigation">
