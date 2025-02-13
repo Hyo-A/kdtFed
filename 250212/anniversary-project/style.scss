@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+
+@font-face {
+  font-family: "Ownglyph_ParkDaHyun";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Uiyeun";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Uiyeun.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+$font: (
+  jua: "Jua",
+  leaf: "Ownglyph_ParkDaHyun",
+  leaf2: "Uiyeun",
+);
+
+$color: (
+  light: #fff,
+  dark: #000,
+  title: #666,
+  shadow: #333,
+  accent: #222,
+  bg: #747474,
+  item: #ccc,
+  br: #ac5f32,
+  lightbrown: #cf865b,
+);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("https://pbs.twimg.com/media/EcUqZRBU4Acxzx1.jpg:large")
+    center/cover no-repeat;
+}
+
+#container {
+  width: 450px;
+  border: 4px solid map-get($map: $color, $key: br);
+  border-radius: 18px;
+  box-shadow: 0 0 8px map-get($map: $color, $key: item);
+  padding: 20px;
+  background: map-get($map: $color, $key: light);
+  .day1 {
+    text-align: center;
+    font-family: map-get($map: $font, $key: leaf);
+    h3 {
+      font-size: 3.2rem;
+      font-weight: normal;
+      color: map-get($map: $color, $key: br);
+    }
+    .accent {
+      span {
+        font-size: 4rem;
+        font-weight: bold;
+        color: map-get($map: $color, $key: accent);
+      }
+    }
+  }
+  .bar {
+    width: 100%;
+    height: 40px;
+    background: map-get($map: $color, $key: lightbrown);
+    color: map-get($map: $color, $key: light);
+    margin: 20px 0;
+    text-align: center;
+    font-size: 1.8rem;
+    border-radius: 8px;
+    line-height: 40px;
+  }
+  .day2 {
+    width: 100%;
+    font-family: map-get($map: $font, $key: leaf2);
+    ul {
+      height: 60px;
+      border-bottom: 1px dashed map-get($map: $color, $key: item);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 2.5rem;
+      .item-title {
+        padding-left: 20px;
+      }
+      .item-date {
+        padding-right: 20px;
+        color: map-get($map: $color, $key: br);
+      }
+    }
+  }
+}

@@ -49,7 +49,7 @@ body {
     overflow: hidden;
     &::before {
       content: attr(data-text);
-      // attr 은 data라는 접두어 안의 속성값을 찾아와준다?!
+      // attr 은 data라는 접두어 안의 속성값을 찾아와준다?
       color: map-get($map: $color, $key: main-text-color);
       position: absolute;
       top: 0;
