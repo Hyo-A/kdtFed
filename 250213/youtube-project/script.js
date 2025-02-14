@@ -72,6 +72,7 @@ const onScrollEnd = (e) => {
 
 const onScrollStart = (e) => {
   startX = getClientX(e);
+
   window.addEventListener("touchmove", onScrollMove);
   window.addEventListener("mousemove", onScrollMove);
 
