@@ -22,6 +22,7 @@ button.addEventListener("click", () => {
     userName = userName.slice(0, userName.length - half);
 
     result.innerText = `${userName}***@${domain}`;
+    // username의 length의 반만 가져오되, 뒤에*** 달기
     email.value = "";
   }
 });

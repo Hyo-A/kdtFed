@@ -20,6 +20,6 @@ let str = "Good Morning.";
 // console.log(str.slice(0, 4));
 // slice도 substring과 같은 역할을 한다!!
 // slice도 substring의 차이는? slice는 첫번째 인자값으로 음수로 받을 수 있따!
-// console.log(str.slice(-6, 12));
+console.log(str.slice(-6, 8));
 // console.log(str.substring(-6, 12));
 // substring에 음수값은 자동으로 0으로 변환된다!

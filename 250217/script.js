@@ -21,11 +21,14 @@ const counting = (string, letter) => {
   let count = 0;
 
   for (let i = 0; i < string.length; i++) {
-    if (string[i] === letter) count += 1;
+    if (string[i] === letter) {
+      count += 1;
+    }
   }
   return count;
 };
 
 const result = counting(string, letter);
 
-document.write(`${string}에는 ${letter}가 ${result}개 있습니다`);
+alert(`${string}에는 ${letter}가 ${result}개 있습니다`);
+// document.write(`${string}에는 ${letter}가 ${result}개 있습니다`);

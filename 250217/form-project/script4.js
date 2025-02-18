@@ -31,7 +31,7 @@ const getTokenTimer = (e) => {
   // 1s = 1000ms
   // 1m = 1000ms * 60
 
-  let timer = 10;
+  let timer = 180;
   let interval = setInterval(() => {
     if (timer >= 0) {
       const minutes = Math.floor(timer / 60);
@@ -47,7 +47,7 @@ const getTokenTimer = (e) => {
       document.querySelector("#token-button").style = "";
       document.querySelector("#token-button").setAttribute("disabled", true);
 
-      document.querySelector("#token-timer").innerText = "3:00";
+      document.querySelector("#token-timer").innerText = "03:00";
       document.querySelector("#token-timer-comfirm-button").style = "";
       document
         .querySelector("#token-timer-comfirm-button")
