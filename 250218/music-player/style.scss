@@ -33,7 +33,10 @@ figure {
   height: 100vh;
   overflow: hidden;
   position: relative;
-  background-image: linear-gradient(to top, #96fbc4 0%, #f9f586 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4GEWnCmfkRX4wgBF5E0FAicet5gY_ugRHpw&s");
   & > h1 {
     position: absolute;
     top: 7vh;
@@ -65,7 +68,7 @@ figure {
     bottom: 7vh;
     left: 50%;
     transform: translateX(-50%);
-    color: #085506;
+    color: map-get($map: $color, $key: light);
     letter-spacing: 2px;
     opacity: 0.8;
     font: normal 1.2rem/1 "arial";
@@ -289,5 +292,53 @@ figure {
   }
   100% {
     transform: translateY(10%) rotate(360deg);
+  }
+}
+
+// 어제것에서 슬쩍 가져온 로딩 scss
+.loading {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    animation: loading 1.5s linear infinite;
+    &:nth-child(1) {
+      background: crimson;
+    }
+    &:nth-child(2) {
+      background: dodgerblue;
+      animation-delay: 0.8s;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  25% {
+    top: 0;
+    left: calc(100% - 10px);
+  }
+  50% {
+    top: calc(100% - 10px);
+    left: calc(100% - 10px);
+  }
+  75% {
+    top: calc(100% - 10px);
+    left: 0;
+  }
+  100% {
+    top: 0;
+    left: 0;
   }
 }
