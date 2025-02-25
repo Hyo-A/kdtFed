@@ -3,8 +3,20 @@
 
 // select 안에 value와 카테고리가 같으면 해당 상품만 보이게,
 // 클릭한 상품의 정보로 들어가게 만들고 싶은데?
-const productInfo = "./db.json";
+
+// const productInfo =
+//   "./db.json";
+
+// const productInfo =
+//   "https://raw.githubusercontent.com/Hyo-A/array-project/refs/heads/main/db.json";
+
+const productInfo =
+  "https://my-json-server.typicode.com/Hyo-A/array-project/data";
+
 const ul = document.querySelector("ul");
+// > myjson server
+// > my-json-server.typicode.com/user/repo/posts/1   내이름, repository이름, 내 json 데이터의 카값, id값
+// > 반드시 db.json파일로 이름을 짓고 github상에 그 파일이 들어있어야함
 
 //db.json
 fetch(productInfo)
@@ -15,7 +27,7 @@ fetch(productInfo)
     // todolist가 다섯개가 있는데 3번째꺼를 지우고 싶다면 사용자가 todolist 값을 만드는 순가 id값을 각자 만들고 우리가 만든 db의 값과 비교할 수 있도록 만드는것?!
     // id 값을 생성할 준비를 시작?! => id값은 현 시간을 정의하는 함수를 통해 만들수 있는데..
     const products = {
-      data: data.data.map((item) => ({
+      data: data.map((item) => ({
         ...item,
         // 아이템을 풀어헤쳐
         id: idCounter++,
@@ -64,7 +76,11 @@ fetch(productInfo)
       ul.appendChild(li);
 
       li.addEventListener("click", () => {
-        window.location.href = "product-detail.html";
+        const url = `product-detail.html?category=${encodeURIComponent(
+          product.category
+        )}&name=${encodeURIComponent(product.name)}`;
+        // 쿼리스트링은 ? + key + value (+ &) // 요녀석은 쿠키값이 남는다 고로 민감한 정보를 남길 수 있다
+        window.location.href = url;
         //window.location.href 원하는 주소로 보내준다?! 이것을 "페이지라우팅(페이지를 분기했다 쪼개서 관리했다)"이라 부른다
       });
     };

@@ -3,11 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- kakao share -->
+    <script
+      src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"
+      integrity="sha384-DKYJZ8NLiK8MN4/C5P2dtSmLQ4KwPaoqAfyA/DfmEc1VDxu4yyC7wy6K1Hs90nka"
+      crossorigin="anonymous"
+    ></script>
+    <!-- custom css & js -->
     <link rel="stylesheet" href="./styles/product-detail.css" />
     <script defer src="./scripts/product-detail.js"></script>
     <title>Product-detail Page</title>
   </head>
   <body>
-    <h1>product detail page</h1>
+    <a id="kakaotalk-sharing-btn" href="javascript:shareMessage();">
+      <!-- shareMessage()는 내가 넣었다 js에서 저 함수를 만들자 -->
+      <img
+        src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+        alt="카카오톡 공유 보내기 버튼"
+      />
+    </a>
+    <div id="product-detail"></div>
   </body>
 </html>
