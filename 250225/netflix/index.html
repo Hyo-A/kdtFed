@@ -78,6 +78,34 @@
         </ul>
       </nav>
       <section class="mainSlider"></section>
+      <section class="movie">
+        <article class="nowplaying">
+          <h1>무비차트 | 현재상영작</h1>
+          <ul>
+            <li>
+              <div class="moviePoster">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVed6tEXkrNuYp_JmGWfc3ISGc0_FgF53JGw&s"
+                  alt="#"
+                />
+                <span>ALL</span>
+                <span>1</span>
+              </div>
+              <div class="movieTitle">오징어게임</div>
+              <div class="movieDesc">
+                <span>2025-02-27</span>
+                <span>🥇6.5</span>
+              </div>
+            </li>
+          </ul>
+        </article>
+        <article class="upcoming">
+          <h1>무비차트 | 개봉예정작</h1>
+        </article>
+        <article class="toprated">
+          <h1>무비차트 | 인기상영작</h1>
+        </article>
+      </section>
       <section class="faq">
         <div class="faq-inner">
           <h1>자주묻는 질문</h1>
@@ -97,6 +125,12 @@
               Animi officia voluptatibus vero.
             </div>
             <div class="title">어디에서 신청할 수 있나요?</div>
+            <div class="content">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid
+              corporis consequuntur rem ratione quasi earum aspernatur nulla
+              quia! Deserunt maxime aut eveniet, sapiente eos dolorem ullam?
+              Animi officia voluptatibus vero.
+            </div>
             <div class="title">멤버십을 해지하려면 어떻게 해야하나요?</div>
             <div class="content">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid
@@ -121,8 +155,41 @@
               Animi officia voluptatibus vero.
             </div>
           </div>
+          <div class="newsletter">
+            <p>
+              시청할 준비가 되셨나요?<br />멤버십을 등록하거나 재시작하려면
+              이메일 주소를 입력하세요.
+            </p>
+            <form name="email-list" action="#" method="get">
+              <input type="text" name="emailAddress" id="emailAddress" />
+              <input type="submit" value="시작하기" />
+            </form>
+          </div>
         </div>
       </section>
     </main>
+    <div class="modal-search">
+      <div class="close">
+        <i class="fas fa-xmark"></i>
+      </div>
+      <div class="search">
+        <form name="searchForm" id="searchForm" action="#" method="get">
+          <input
+            type="search"
+            name="search-box"
+            id="search-box"
+            placeholder="보고싶은 영화를 검색하세요"
+          />
+          <input type="submit" value="Search" />
+        </form>
+        <p class="hash-tag">
+          <span>#퇴마록</span>
+          <span>#중증외상센터</span>
+          <span>#나의완벽한비서</span>
+          <span>#한지민</span>
+          <span>#오징어게임</span>
+        </p>
+      </div>
+    </div>
   </body>
 </html>
