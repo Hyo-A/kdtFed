@@ -1,3 +1,39 @@
+// Gototop Event
+window.addEventListener("scroll", () => {
+  const gototop = document.querySelector(".gototop");
+  const header = document.querySelector("header");
+  let scrollY = window.scrollY;
+  if (scrollY > 50) {
+    gototop.classList.add("active");
+    header.classList.add("active");
+  } else {
+    gototop.classList.remove("active");
+    header.classList.remove("active");
+  }
+});
+
+// Trigger Event
+const trigger = document.querySelector(".trigger");
+trigger.addEventListener("click", function () {
+  const gnb = document.querySelector(".gnb");
+  const menus = document.querySelectorAll(".menu a");
+
+  gnb.classList.toggle("active");
+  this.classList.toggle("active");
+
+  menus.forEach((menu) => {
+    menu.addEventListener("click", () => {
+      gnb.classList.remove("active");
+      trigger.classList.remove("active");
+    });
+  });
+});
+
+// Scoll event
+$(".menu a, .gototop").click(function () {
+  $.scrollTo(this.hash || 0, 900);
+});
+
 // Slick Slider - 1
 $(".history-slider").slick({
   slidesToShow: 4,

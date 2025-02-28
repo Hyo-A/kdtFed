@@ -1,0 +1,228 @@
+/* reset */
+@import "./reset.scss";
+
+/* variables */
+@import "./variables.scss";
+
+/* responsive */
+@media screen and (max-width: 768px) {
+  .cd-section {
+    height: auto;
+    & > div {
+      height: auto;
+      .content {
+        position: static;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  /* === header === */
+  header {
+    z-index: 10;
+    transition: all 0.5s;
+    &.active {
+      background: map-get($map: $color, $key: main-light-color);
+      border-bottom: 1px solid map-get($map: $color, $key: input-focus-color);
+    }
+    .gnb-inner {
+      .gnb {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 100vh;
+        box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.4);
+        background: map-get($map: $color, $key: main-light-color);
+        transition: all 0.5s;
+        .menu {
+          padding-top: 45px;
+          display: block;
+          a {
+            color: map-get($map: $color, $key: main-dark-color);
+            display: block;
+            text-align: right;
+            padding-right: 20px;
+            font-size: 2rem;
+          }
+        }
+        .slogan {
+          display: none;
+        }
+        &.active {
+          right: 0;
+        }
+      }
+      .trigger {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 24px;
+        height: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+        span {
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          background: map-get($map: $color, $key: main-dark-color);
+          transition: all 0.5s;
+          &:nth-child(1) {
+            top: 0;
+          }
+          &:nth-child(2) {
+            top: 50%;
+          }
+          &:nth-child(3) {
+            top: 100%;
+          }
+        }
+        &.active {
+          span {
+            &:nth-child(1) {
+              top: 50%;
+              transform: rotate(45deg);
+            }
+            &:nth-child(2) {
+              opacity: 0;
+            }
+            &:nth-child(3) {
+              top: 50%;
+              transform: rotate(-45deg);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* === gototop === */
+  .gototop {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    border: 1px solid map-get($map: $color, $key: main-light-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    transform: translateY(30px);
+    transition: all 0.5s;
+    opacity: 0;
+    &.active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* === home === */
+  .home-inner {
+    height: 100vh;
+    .welcome-text {
+      transform: translate(-50%, -50%) scale(0.7);
+      width: 100%;
+    }
+    .home-heading {
+      left: 20px;
+      span {
+        font-size: 5rem;
+      }
+    }
+  }
+
+  /* === about === */
+  .about-inner {
+    height: auto;
+    padding: 20px;
+    background: map-get($map: $color, $key: about-bg-color);
+    .about-items {
+      position: static;
+      width: 100%;
+      margin-left: 0;
+      transform: none;
+      text-align: center;
+      padding: 20px;
+      .item {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+/* === project === */
+.project-inner {
+  height: auto;
+  border: none;
+  .tabs {
+    .tab {
+      float: none;
+      flex-direction: column;
+      & > div {
+        width: 100%;
+        &.project-info {
+          width: 100%;
+        }
+        &.project-photo {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+/* === plan === */
+.plan-inner {
+  height: auto;
+  padding: 20px;
+  .plan-feature {
+    width: 100%;
+    position: static;
+    transform: none;
+    & > div {
+      height: auto;
+    }
+    .plan-info {
+      flex-direction: column;
+      margin-bottom: 40px;
+      .plan-heading {
+        width: 100%;
+      }
+      .plan-photo {
+        width: 100%;
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+}
+
+/* === awards === */
+.awards-inner {
+  height: auto;
+  flex-direction: column;
+  .victory-jump {
+    object-fit: cover;
+  }
+}
+
+/* === contact === */
+.contact-inner {
+  height: auto;
+  .contact-feature {
+    width: 100%;
+    position: static;
+    transform: none;
+    flex-direction: column;
+    & > div {
+      width: 100%;
+    }
+  }
+}
