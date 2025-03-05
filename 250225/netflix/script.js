@@ -1,9 +1,73 @@
 import { API_KEY } from "./env.js";
 
+// Document Items
+const nowplayingUL = document.querySelector(".nowplaying ul");
+const upcomingUL = document.querySelector(".upcoming ul");
+const topratedUL = document.querySelector(".toprated ul");
+
+// console.log(nowplayingUL, upcomingUL, topratedUL);
+
 // 공통 URL
 const tmdbCommand = "https://api.themoviedb.org/3";
 
 // quary값이 시작되는 지점에서 api_key=${API_KEY}& 써야함
+
+// Create Element
+const createElement = (movie, index, category) => {
+  // console.log(movie);
+  const {
+    adult,
+    genre_ids,
+    id,
+    overview,
+    poster_path,
+    release_date,
+    title,
+    vote_average,
+  } = movie;
+
+  const li = document.createElement("li");
+  const moviePoster = document.createElement("div");
+  const movieTitle = document.createElement("div");
+  const movieDesc = document.createElement("div");
+
+  // console.log(li);
+
+  const img = document.createElement("img");
+  img.src = `https://image.tmdb.org/t/p/original/${poster_path}`;
+
+  const ageLimit = document.createElement("span");
+  const movieNum = document.createElement("span");
+  const release = document.createElement("span");
+  const vote = document.createElement("span");
+
+  moviePoster.className = "moviePoster";
+  movieTitle.className = "movieTitle";
+  movieDesc.className = "movieDesc";
+
+  let adultKo = adult === false ? "ALL" : "18";
+  ageLimit.innerText = adultKo;
+  movieNum.innerText = index + 1;
+
+  release.innerText = release_date;
+  vote.innerText = `⭐${parseFloat(vote_average).toFixed(2)}`;
+
+  li.className = id;
+  li.setAttribute("data-category", category);
+
+  movieTitle.innerText = title;
+  movieDesc.append(release, vote);
+  moviePoster.append(img, ageLimit, movieNum);
+  li.append(moviePoster, movieTitle, movieDesc);
+
+  if (category === "nowplaying") {
+    nowplayingUL.appendChild(li);
+  } else if (category === "upcoming") {
+    upcomingUL.appendChild(li);
+  } else if (category === "toprated") {
+    topratedUL.appendChild(li);
+  }
+};
 
 // NowPlaying db
 const nowPlaying = async () => {
@@ -55,6 +119,121 @@ const getMovies = async () => {
   ]);
   // 세개의 배열을 가져왔는데 셋 다 가지고왔을때까지 기다리다가 도착하면 한번에 딱 화면에 나오도록 promiss~
   // all() 는 언에 값이 다 들어올때까지 기다렸다 실행임
+
+  // Movie Items
+  nowPlayingMovie.forEach((movie, index) => {
+    createElement(movie, index, "nowplaying");
+  });
+
+  upComingMovie.forEach((movie, index) => {
+    createElement(movie, index, "upcoming");
+  });
+
+  topRatedMovie.forEach((movie, index) => {
+    createElement(movie, index, "toprated");
+  });
+
+  // Item Slider
+  // 총 갯수 20 // 한번에 보여지는 갯수 5 // 버튼 클릭시 5 이동
+  // 각 영화의 너비값 160 // 간격 25 // 총공간 900
+  // (160 + 25) * 4 + 160 => 슬라이드버튼 클릭시 이동해야하는 거리
+  // 무한 슬라이드를 실행하기 위해서 아래와 같이 노드를 복제하여
+  // 15 ~ 19 인덱스템 + 20개의 영화아이템 + 0 ~ 4 인덱스템
+
+  // 1 2 3 4 5 => 6 7 8 9 10 => 11 12 13 14 15 => 16 17 18 19 20
+
+  const initializeSlider = (
+    slideSelector,
+    rightArrowSelector,
+    leftArrowSelector
+  ) => {
+    const slider = document.querySelector(slideSelector);
+    const slides = slider.querySelectorAll("li");
+    // console.log(slides);
+    const slideToShow = 5;
+    const slideWidth = 160;
+    const slideMargin = 25;
+    let currentIndex = 0;
+    let isTransition = false;
+
+    const firstClones = Array.from(slides)
+      .slice(0, slideToShow)
+      .map(
+        (slide) => slide.cloneNode(true)
+        // li태그 안에 하위 요소의 노드까지 전부 복제하겠다가 true!
+      );
+
+    const lastClones = Array.from(slides)
+      .slice(-slideToShow)
+      .map((slide) => slide.cloneNode(true));
+
+    slider.append(...firstClones);
+    slider.prepend(...lastClones);
+
+    const updateSlider = () => {
+      const offset = -(slideWidth + slideMargin) * (currentIndex + slideToShow);
+      slider.style.transform = `translateX(${offset}px)`;
+    };
+    slider.style.transition = "none";
+    updateSlider();
+
+    document.querySelector(rightArrowSelector).addEventListener("click", () => {
+      if (isTransition) return;
+
+      isTransition = true;
+      currentIndex += slideToShow;
+
+      if (currentIndex === slides.length) {
+        slider.style.transition = "all 0.5s";
+        updateSlider();
+        setTimeout(() => {
+          slider.style.transition = "none";
+          currentIndex = 0;
+          updateSlider();
+          isTransition = false;
+        }, 500);
+      } else {
+        slider.style.transition = "all 0.5s";
+        updateSlider();
+        setTimeout(() => {
+          isTransition = false;
+        }, 500);
+      }
+    });
+    document.querySelector(leftArrowSelector).addEventListener("click", () => {
+      if (isTransition) return;
+
+      isTransition = true;
+      currentIndex -= slideToShow;
+
+      if (currentIndex < 0) {
+        slider.style.transition = "all 0.5s";
+        updateSlider();
+        setTimeout(() => {
+          slider.style.transition = "none";
+          currentIndex = slides.length - slideToShow;
+          updateSlider();
+          isTransition = false;
+        }, 500);
+      } else {
+        slider.style.transition = "all 0.5s";
+        updateSlider();
+        setTimeout(() => {
+          isTransition = false;
+        }, 500);
+      }
+    });
+  };
+
+  initializeSlider(
+    ".nowplaying ul",
+    "#nowPlayingRightArrow",
+    "#nowPlayingLeftArrow"
+  );
+
+  initializeSlider(".upcoming ul", "#upComingRightArrow", "#upComingLeftArrow");
+
+  initializeSlider(".toprated ul", "#topRatedRightArrow", "#topRatedLeftArrow");
 
   // Main Slider
   const mainSlider = document.querySelector(".mainSlider");
