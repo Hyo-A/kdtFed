@@ -432,7 +432,7 @@ body {
   width: 100%;
   height: auto;
   padding: 100px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   .modal-content {
@@ -556,14 +556,17 @@ body {
         background: #fff;
       }
     }
-    .modal-close {
-      position: absolute;
-      top: 0;
-      right: 0;
-      i {
-        font-size: 3rem;
-        cursor: pointer;
-      }
+  }
+  .modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    i {
+      font-size: 3rem;
+      cursor: pointer;
     }
+  }
+  &.active {
+    display: flex;
   }
 }

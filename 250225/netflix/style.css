@@ -433,7 +433,7 @@ body {
   width: 100%;
   height: auto;
   padding: 100px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
@@ -557,12 +557,15 @@ body {
   margin: 20px 0;
   background: #fff;
 }
-.modal-overlay .modal-content .modal-close {
+.modal-overlay .modal-close {
   position: absolute;
   top: 0;
   right: 0;
 }
-.modal-overlay .modal-content .modal-close i {
+.modal-overlay .modal-close i {
   font-size: 3rem;
   cursor: pointer;
+}
+.modal-overlay.active {
+  display: flex;
 }
