@@ -113,7 +113,16 @@ const movieGeneres = async () => {
   return genres;
 };
 
-movieGeneres();
+// Youtube db
+const youtubeTrailers = async (movieID) => {
+  const url = `${tmdbCommand}/movie/${movieID}/videos?api_key=${API_KEY}&language=ko-KR`;
+  const response = await fetch(url);
+  const { results: trailers } = await response.json();
+  // console.log(trailers);
+  return trailers;
+};
+
+youtubeTrailers(278);
 
 // fetch(url)
 //   .then((response) => response.json())
@@ -247,7 +256,7 @@ const getMovies = async () => {
   const movieModal = document.querySelector(".modal-overlay");
 
   movieItems.forEach((movieItem) => {
-    movieItem.addEventListener("click", () => {
+    movieItem.addEventListener("click", async () => {
       movieModal.innerHTML = "";
       movieModal.classList.add("active");
       const id = parseInt(movieItem.className);
@@ -319,7 +328,7 @@ const getMovies = async () => {
         return genre ? genre.name : "UnKnown";
       });
 
-      console.log(genreNames);
+      // console.log(genreNames);
       modalContent.innerHTML = `
         <div class="modal-top">
           <div class="modal-photo">
@@ -386,6 +395,40 @@ const getMovies = async () => {
       modalClose.addEventListener("click", () => {
         movieModal.classList.remove("active");
       });
+
+      // youtube Trailer
+      try {
+        const trailers = await youtubeTrailers(movie.id);
+        if (trailers.length > 0) {
+          const firstTrailer = trailers[0];
+          // console.log(firstTrailer);
+          // 해당영상의 0번째 영상만 찾아온다 영상이 많은 애도 있으니깐 0번만 갖고오는거
+          if (firstTrailer.site === "YouTube") {
+            const videoID = firstTrailer.key;
+            const youtubeUrl = `https://www.youtube.com/embed/${videoID}`;
+            // console.log(youtubeUrl); // 이거 무조건 iframe 안에 복붙해야함!!
+
+            const modalTrailer = modalContent.querySelector(".modal-trailer");
+            const iframe = document.createElement("iframe");
+            iframe.width = "1000";
+            iframe.height = "500";
+            iframe.src = youtubeUrl;
+            iframe.arrowFullscreen = true;
+            // iframe.frameBorder = "0"; // 얘는 typescript에서 쓸수 없는 오래된 문법 안쓴는게 나을것같으니 scss 상에서 제어하자?
+
+            modalTrailer.innerHTML = "";
+
+            modalTrailer.appendChild(iframe);
+          }
+        } else {
+          console.log(`${title}의 예고편이 존재하지 않습니다.`);
+        }
+      } catch (error) {
+        console.err(
+          `$영화 ID ${movie.id}의 예고편을 가져오지 못했습니다. : `,
+          error
+        );
+      }
     });
   });
 

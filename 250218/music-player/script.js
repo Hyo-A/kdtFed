@@ -105,6 +105,7 @@ let active = 0;
 const len = lists.length - 1;
 
 const activation = (index, lists) => {
+  console.log(lists);
   //lists는 전체 총 아이템이라 가정, index는
   lists.forEach((list) => {
     list.classList.remove("on");
@@ -140,4 +141,5 @@ next.addEventListener("click", (e) => {
   frame.style.transform = `rotate(${num * deg}deg)`;
   active === len ? (active = 0) : active++;
   activation(active, lists);
+  // console.log(active);
 });
