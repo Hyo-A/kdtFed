@@ -63,6 +63,7 @@ const getTokenTimer = (e) => {
 const signup = (e) => {
   e.preventDefault();
 
+  console.log("안녕");
   const email = document.querySelector("#email").value;
   const writer = document.querySelector("#writer").value;
   const password1 = document.querySelector("#password1").value;
