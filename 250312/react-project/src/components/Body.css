@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.counterApp {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  .buttons {
+    width: 100%;
+    display: flex;
+    gap: 4px;
+    button {
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}
