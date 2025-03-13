@@ -1,0 +1,50 @@
+$color: (
+  light: #fff,
+  dark: #000,
+  accent: #dc143c,
+  gray: #eee,
+  dgray: #666666,
+);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// .App {
+//   width: 100%;
+//   height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   gap: 20px;
+//   .formList {
+//     display: flex;
+//     gap: 8px;
+//   }
+// }
+
+.App {
+  width: 400px;
+  margin: 80px auto;
+  section {
+    background: map-get($map: $color, $key: gray);
+    margin: 10px 0;
+    padding: 20px;
+    border-radius: 10px;
+    .buttons {
+      display: flex;
+      gap: 5px;
+      button {
+        background: map-get($map: $color, $key: dgray);
+        color: map-get($map: $color, $key: light);
+        padding: 3px 8px;
+        border: none;
+        border-radius: 5px;
+        font-size: 12px;
+      }
+    }
+  }
+}
