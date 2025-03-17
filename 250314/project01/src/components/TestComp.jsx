@@ -1,6 +1,32 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
+
+const CompA = () => {
+  console.log("컴포넌트가 호출되었습니다"); // 횡단관심사 대상
+  return <div>CompA</div>;
+};
+
+const CompB = () => {
+  console.log("컴포넌트가 호출되었습니다"); // 횡단관심사 대상
+  return <div>CompB</div>;
+};
+
+const withLifeCycle = (WrapperComponent) => {
+  return (props) => {
+    useEffect(() => {
+      console.log("Mount!");
+      return () => console.log("Unmount!");
+    }, []);
+
+    useEffect(() => {
+      console.log("Update");
+    });
+
+    return <WrapperComponent {...props} />;
+  };
+};
 
 const reducer = (state, action) => {
+  // state는 초기값 // action은 상태변화함수가 전달한 객체
   switch (action.type) {
     case "INCEARE":
       return state + action.data;
@@ -8,7 +34,7 @@ const reducer = (state, action) => {
       return state - action.data;
     case "INIT":
       return 0;
-    default:
+    default: // 아무것에도 해당하지 않을 때에 아래를 반환함
       state;
   }
 };

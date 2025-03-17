@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoDispatchContext } from "../App";
 
-const TodoItem = ({ content, createdDate, id, isDone, onUpdate, onDelete }) => {
+const TodoItem = ({ content, createdDate, id, isDone }) => {
+  console.log(`${id} TodoItem update`);
+  const { onUpdate, onDelete } = useContext(TodoDispatchContext);
+
   const onChangeCheckbox = () => {
     onUpdate(id);
   };
@@ -24,4 +28,5 @@ const TodoItem = ({ content, createdDate, id, isDone, onUpdate, onDelete }) => {
   );
 };
 
-export default TodoItem;
+export default React.memo(TodoItem); // 얘는 todoitem의 강화이다
+// export default TodoItem;
