@@ -60,3 +60,25 @@ export const getFormattedDate = (targetDate) => {
 
   return `${year}-${month}-${date}`;
 };
+
+export const getMonthRangeByDate = (date) => {
+  const beginTimeStamp = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    1
+  ).getTime();
+  // ex> 2025 3월 21일이라면?
+  // beginTimeStamp은 2025 3 1 를 찍는다
+
+  const endTimeStamp = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0,
+    23,
+    59,
+    59
+  ).getTime();
+  // endTimeStamp은 2025 3+1 0일 23시 59분 59초
+
+  return { beginTimeStamp, endTimeStamp };
+};
