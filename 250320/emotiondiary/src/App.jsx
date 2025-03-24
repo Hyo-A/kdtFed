@@ -46,18 +46,23 @@ const reducer = (state, action) => {
       return action.data;
     }
     case "CREATE": {
-      return [action.data, ...state];
+      const newState = [action.data, ...state];
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
     }
     case "UPDATE": {
-      return (
-        state,
-        map((it) =>
-          String(it.id) === String(action.data.id) ? { ...action.data } : it
-        )
+      const newState = state.map((it) =>
+        String(it.id) === String(action.data.id) ? { ...action.data } : it
       );
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
     }
     case "DELETE": {
-      return state.filter((it) => String(it.id) !== String(action.targetId));
+      const newState = state.filter(
+        (it) => String(it.id) !== String(action.targetId)
+      );
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
     }
     default: {
       return state;
@@ -71,18 +76,37 @@ export const DiaryDispatchContext = React.createContext();
 
 function App() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-
   const [data, dispatch] = useReducer(reducer, []);
   let idRef = useRef(0);
   // ref는 숫자 0을 가지고 있는 객체이다
 
   useEffect(() => {
+    // dispatch({
+    //   type: "INIT",
+    //   data: mockData,
+    // });
+    // setIsData
+    // Loaded(true);
+
+    const rawData = localStorage.getItem("diary");
+    if (!rawData) {
+      setIsDataLoaded(true);
+      return;
+    }
+    const localData = JSON.parse(rawData);
+    if (localData.length === 0) {
+      setIsDataLoaded(true);
+      return;
+    }
+    localData.sort((a, b) => Number(b.id) - Number(a.id));
+    idRef.current = localData[0].id + 1;
+
     dispatch({
       type: "INIT",
-      data: mockData,
+      data: localData,
     });
     setIsDataLoaded(true);
-  });
+  }, []);
   // 의존성배열에 아무것도 넣지 않으면? mount 시점에만 callback 함수 실행
 
   const onCreate = (date, content, emotionId) => {
@@ -90,7 +114,7 @@ function App() {
       type: "CREATE",
       data: {
         id: idRef.current,
-        date: new Date(date).getTime(),
+        date: new Date().getTime(),
         content,
         emotionId,
       },
@@ -104,7 +128,7 @@ function App() {
       type: "UPDATE",
       data: {
         id: targetId,
-        date: new Date(date).getTime(),
+        date: new Date().getTime(),
         content,
         emotionId,
       },

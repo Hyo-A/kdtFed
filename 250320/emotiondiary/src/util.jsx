@@ -59,7 +59,7 @@ export const getFormattedDate = (targetDate) => {
   if (date < 10) date = `0${date}`;
 
   return `${year}-${month}-${date}`;
-};
+}; // 인자값으로 들어온 날자정보를 출력해주는 역할
 
 export const getMonthRangeByDate = (date) => {
   const beginTimeStamp = new Date(

@@ -67,7 +67,7 @@ const DiaryItem = ({ id, emotionId, content, date }) => {
     navigate(`/diary/${id}`);
   };
   const goEdit = () => {
-    navigate("/edit/${id}");
+    navigate(`/edit/${id}`);
     // 몇번째 일기인지에 따라 아이디가 달라지고 경로 뒤에는 꼭 아이디가 따라붙는다
   };
 
@@ -90,4 +90,5 @@ const DiaryItem = ({ id, emotionId, content, date }) => {
 };
 // {content.slice(0, 25)}는 글자수를 최대 24자로 해서 가지고와라
 
-export default DiaryItem;
+export default React.memo(DiaryItem);
+// diaryitem을 고차컴포넌트로 만든거임

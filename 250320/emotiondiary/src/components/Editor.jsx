@@ -58,7 +58,7 @@ const Buttongroup = styled.div`
 const Editor = ({ initData, onSubmit }) => {
   const [state, setState] = useState({
     date: getFormattedDate(new Date()),
-    emotionId: 3,
+    emotionId: 1,
     content: "",
   });
 
@@ -119,7 +119,8 @@ const Editor = ({ initData, onSubmit }) => {
               key={it.id}
               {...it}
               onClick={handleChangeEmotion}
-              isSelected={state.emotionId === it.id} //state안에 id값이 된것과 it.id가 참이면 이것은 즉슨 선택된 놈을 뜻하게 되는것? 첨에는 3으로 설정해놨음..
+              isSelected={state.emotionId === it.id}
+              //state안에 id값이 된것과 it.id가 참이면 이것은 즉슨 선택된 놈을 뜻하게 되는것? 첨에는 3으로 설정해놨음..
             />
           ))}
         </Emotiongroup>

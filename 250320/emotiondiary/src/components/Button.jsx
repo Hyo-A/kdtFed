@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const ButtonItem = styled.button`
   border: none;
-  border-radius: 12px;
+  border-radius: 24px;
   padding: 10px 20px;
   font-size: 2rem;
   font-family: var(--nanum-font);
@@ -12,6 +12,8 @@ const ButtonItem = styled.button`
       ? `background: #64c964; color: #fff;`
       : type === "negative"
       ? `background: #fd565f; color: #fff;`
+      : type === "yellow"
+      ? `background: #fd8446; color: #fff;`
       : `background: #ccc; color: #000;`}
   cursor: pointer;
 `;
