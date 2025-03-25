@@ -108,7 +108,12 @@ const Editor = ({ initData, onSubmit }) => {
       <EditorSection>
         <EditorTitle>오늘의 날짜</EditorTitle>
         <EditorInfo>
-          <Input type="date" value={state.date} onChange={handleChangeDate} />
+          <Input
+            type="datetime-local"
+            value={state.date}
+            onChange={handleChangeDate}
+            // input에서 데이터이면 시, 분까지 받아드리지 못하고, datetime-local를 써야만 한다 충돌도 나구
+          />
         </EditorInfo>
       </EditorSection>
       <EditorSection>

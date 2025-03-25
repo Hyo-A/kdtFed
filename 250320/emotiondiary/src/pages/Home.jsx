@@ -3,7 +3,7 @@ import { DiaryStateContext } from "../App";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import DiaryList from "../components/DiaryList";
-import { getMonthRangeByDate } from "../util";
+import { getMonthRangeByDate, setPageTitle } from "../util";
 
 const Home = () => {
   const data = useContext(DiaryStateContext);
@@ -11,6 +11,10 @@ const Home = () => {
   const [pivotDate, setPivotDate] = useState(new Date());
 
   const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    setPageTitle("HB의 감정일기장");
+  }, []); // 마운트 시점에서만 실행
 
   useEffect(() => {
     if (data.length >= 1) {

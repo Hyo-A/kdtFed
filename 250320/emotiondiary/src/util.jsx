@@ -54,11 +54,17 @@ export const getFormattedDate = (targetDate) => {
   const year = targetDate.getFullYear();
   let month = targetDate.getMonth() + 1;
   let date = targetDate.getDate();
+  let hours = targetDate.getHours();
+  let minutes = targetDate.getMinutes();
+  let seconds = targetDate.getSeconds();
 
   if (month < 10) month = `0${month}`;
   if (date < 10) date = `0${date}`;
+  if (hours < 10) hours = `0${hours}`;
+  if (minutes < 10) minutes = `0${minutes}`;
+  if (seconds < 10) seconds = `0${seconds}`;
 
-  return `${year}-${month}-${date}`;
+  return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
 }; // 인자값으로 들어온 날자정보를 출력해주는 역할
 
 export const getMonthRangeByDate = (date) => {
@@ -81,4 +87,9 @@ export const getMonthRangeByDate = (date) => {
   // endTimeStamp은 2025 3+1 0일 23시 59분 59초
 
   return { beginTimeStamp, endTimeStamp };
+};
+
+export const setPageTitle = (title) => {
+  const titleElement = document.getElementsByTagName("title")[0];
+  titleElement.innerText = title;
 };

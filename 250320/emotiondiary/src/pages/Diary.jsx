@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // usePararm를 활용해서 상단에 있는 동적파라미터를 찾아올거야
 import Header from "../components/Header";
 import Button from "../components/Button";
 import Viewer from "../components/Viewer";
 import useDiary from "../components/hooks/useDiary";
-import { getFormattedDate } from "../util";
+import { getFormattedDate, setPageTitle } from "../util";
 
 const Diary = () => {
   const { id } = useParams();
@@ -16,6 +17,10 @@ const Diary = () => {
   // useEffect 를 사용해서 업데이트를 제어
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setPageTitle(`${id + 1}번 일기`);
+  }, []);
 
   const goBack = () => {
     navigate(-1);
