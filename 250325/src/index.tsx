@@ -23,6 +23,8 @@ a {
 
 :root {
   --light-color: #fff;
+  --circle-color:#eb5e00;
+  --circle-color2:#0f9c0f;
 }
 
 body {

@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import styled from "styled-components";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const Wrapper = styled(motion.div)`
   width: 100%;
@@ -10,54 +10,73 @@ const Wrapper = styled(motion.div)`
   align-items: center;
 `;
 
-const Box = styled(motion.div)`
-  width: 200px;
-  height: 200px;
-  background: var(--light-color);
-  border-radius: 30px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+const Grid = styled(motion.div)`
+  width: 50vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  & > div {
+    &:first-child,
+    &:last-child {
+      grid-column: span 2;
+    }
+  }
 `;
 
-/*
--800 => 2
+const Box = styled(motion.div)`
+  /* width: 400px; */
+  height: 400px;
+  background: var(--light-color);
+  border: 4px solid black;
+  border-radius: 30px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
--400 => 1.5
-
-0 => 1
-
-+400 => 0.5
-
-+800 => 0
-
-// useTransform은 위의 움직임에 따라 scale을 주고싶기 때문에 쓸거임
-*/
+const Overlay = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 function App() {
-  const x = useMotionValue(0);
+  // const [clicked, setClicked] = useState(false);
+  // const toggle = () => {
+  //   setClicked((prev) => !prev);
+  // };
 
-  const scale = useTransform(x, [-800, 0, 800], [2, 1, 0]);
-  // useTransform 첫번째 인자값은 변환하고싶은값
-  // 두번째는 변환시키고 싶은 범위, 대상
-  // 세번재는 변환 범위를 어떻게 변환하고 싶은가
-  const rotateZ = useTransform(x, [-800, 800], [-360, 360]);
-  const background = useTransform(
-    x,
-    [-800, 0, 800],
-    [
-      "linear-gradient(135deg, rgb(0,210,238), rgb(0, 210, 112))",
-      "linear-gradient(135deg,  rgb(0, 210, 112),rgb(213, 255, 62))",
-      "linear-gradient(135deg, rgb(213, 255, 62), rgb(255, 174, 52)))",
-    ]
-  );
+  const [id, setId] = useState<null | string>(null);
+  // 상황에 따라 null이어야 하기도 하고 빈 문다일수도 있다 <null | string> 타입스크립트는 이케 해야함 얘는 유니온타입이라 부른다
 
-  useEffect(() => {
-    scale.on("change", () => console.log(scale.get()));
-  }, [x]);
+  const arr = ["1", "2", "3", "4"];
+  // layoutId는 반드시 문자로 받아야 하기 때문에 ""안에 숫자를 써서 굳이 문자열로 만든거임
 
   return (
-    <Wrapper style={{ background }}>
-      <Box style={{ x, scale, rotateZ }} drag="x" dragSnapToOrigin />
-      Hello
+    <Wrapper>
+      <Grid>
+        {arr.map((n) => (
+          <Box onClick={() => setId(n)} key={n} layoutId={n} />
+          // 여기에 {n + ""}이렇게 해도 문잗가 되기는 함
+        ))}
+      </Grid>
+      <AnimatePresence>
+        {id ? (
+          <Overlay
+            onClick={() => setId(null)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <Box layoutId={id} style={{ width: 400, height: 400 }} />
+          </Overlay>
+        ) : null}
+      </AnimatePresence>
     </Wrapper>
   );
 }
