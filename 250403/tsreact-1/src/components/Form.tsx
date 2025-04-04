@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
-import Header from "./Header";
-import BlogPost from "./BlogPost";
 
 const Container = styled.div`
   width: 100%;
@@ -11,12 +9,6 @@ const Container = styled.div`
   align-items: center;
   background: var(--bg-color);
   overflow: scroll;
-`;
-
-const ButtonContainer = styled.div`
-  position: absolute;
-  right: 40px;
-  bottom: 40px;
 `;
 
 const ContainerForm = styled.div`
@@ -77,54 +69,54 @@ const Actions = styled.div`
   justify-content: center;
 `;
 
-interface Post {
-  readonly userId: number;
-  readonly id: number;
-  readonly title: string;
-  readonly body: string;
+interface Props {
+  readonly onClose: () => void;
 }
 
-const Form = () => {
-  const [posts, setPosts] = useState<Array<Post>>([]);
-
+const Form = ({ onClose }: Props) => {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
   const url = "https://jsonplaceholder.typicode.com/posts";
 
-  useEffect(() => {
-    // setTimeout(() => {
-    //   setPosts(mockPost);
-    // }, 1000);
-    fetch(url)
-      .then((response) => response.json())
-      .then((json) => setPosts(json))
-      .catch((error) => console.error(error));
-  }, []);
-  // 마운트 되는 시점에서 해당 사항 진행
+  const resgisterPost = () => {
+    if (title === "" || body === "") return;
+  };
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify({
+      usetID: 1,
+      title,
+      body,
+    }),
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      if (typeof onClose === "function") onClose();
+    })
+    .catch((error) => console.error(error));
 
   return (
     <Container>
-      <Header />
-      {posts.map((post) => (
-        <BlogPost key={post.id} title={post.title} body={post.body} />
-        // 맵을 주면 꼭 키값을 생각해!!
-      ))}
-      <ButtonContainer>
-        <Button label={"click"} />
-      </ButtonContainer>
       <ContainerForm>
         <Background />
         <Contents>
-          <Title>블로그 등록</Title>
+          <Title>블로그등록</Title>
           <InputGroup>
-            <Label>Title</Label>
-            <Input />
+            <Label>Title :</Label>
+            <Input value={title} onChange={(e) => setTitle(e.target.value)} />
           </InputGroup>
           <InputGroup>
-            <Label>Body</Label>
-            <Input />
+            <Label>Body :</Label>
+            <Input value={body} onChange={(e) => setBody(e.target.value)} />
           </InputGroup>
           <Actions>
-            <Button label="등록하기" />
-            <Button label="닫기" color="#62ad3f" />
+            <Button label="등록하기" onClick={resgisterPost} />
+            <Button label="닫기" color="#62ad3f" onClick={onClose} />
           </Actions>
         </Contents>
       </ContainerForm>
