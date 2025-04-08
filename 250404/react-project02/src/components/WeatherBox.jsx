@@ -12,7 +12,7 @@ const Container = styled.div`
   padding: 50px;
   gap: 20px;
   border-radius: 16px;
-  box-shadow: 0 0 10px #aec9df;
+  box-shadow: 0 0 10px #b8c6d1;
 `;
 const City = styled.h1`
   font-size: 2rem;
@@ -28,14 +28,17 @@ const Desc = styled.h3`
 const WeatherBox = ({ weather }) => {
   let cityName = "";
 
-  switch (weather?.name) {
+  switch (
+    weather &&
+    weather?.name // weather가 있으면 weather.name을 찾아오라는 and단락평가
+  ) {
     case "Jamwon-dong":
       cityName = "서울시 서초구";
       break;
     case "Paris":
       cityName = "프랑스 파리";
       break;
-    case "New-York":
+    case "New York":
       cityName = "미국 뉴욕";
       break;
     case "Tokyo":
@@ -47,20 +50,27 @@ const WeatherBox = ({ weather }) => {
   }
 
   let weatherMain = "";
-  switch (weather?.weather[0].main) {
+  switch (weather && weather.weather ? weather?.weather[0].main : "") {
     case "Clouds":
       weatherMain = "오늘 날씨 구름";
       break;
     case "Clear":
       weatherMain = "오늘 날씨 맑음";
       break;
+    case "Mist":
+      weatherMain = "오늘 날씨 안개";
+      break;
+    case "Haze":
+      weatherMain = "오늘 날씨 옅은안개";
+      break;
   }
 
   return (
     <Container>
-      <City>🌏 도시: {cityName}</City>
+      <City>🌏 도시 : {cityName}</City>
       <Weather>
-        온도 : {weather?.main.temp} ℃ | 습도 : {weather?.main.humidity} %
+        온도 : {weather && weather.main ? weather?.main.temp : ""} ℃ | 습도 :{" "}
+        {weather && weather.main ? weather?.main.humidity : ""} %
       </Weather>
       <Desc>🌈 현재날씨 : {weatherMain} </Desc>
     </Container>
