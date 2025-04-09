@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import GlobalStyles from "./styles/GlobalStyles.styles";
 import ProductAll from "./Pages/ProductAll";
 import Login from "./Pages/Login";
-import ProductDetail from "./Pages/ProductDetail";
 import Layout from "./Pages/Layout";
 import PrivateRoute from "./Pages/PrivateRoute";
+import { Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [authenticate, setAuthenticate] = useState(false);
+
+  useEffect(() => {
+    console.log("Login :", authenticate);
+  }, [authenticate]);
 
   const router = createBrowserRouter([
     {
