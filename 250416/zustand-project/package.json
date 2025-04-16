@@ -1,5 +1,5 @@
 {
-  "name": "phonebook",
+  "name": "zustand-project",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,14 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.6.1",
-    "bootstrap": "^5.3.5",
     "react": "^19.0.0",
-    "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
-    "react-redux": "^9.2.0",
-    "styled-components": "^6.1.17",
-    "styled-reset": "^4.5.2"
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

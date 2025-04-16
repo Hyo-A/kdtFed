@@ -11,8 +11,6 @@ const Wrapper = styled.div`
 `;
 
 const MovieSlide = ({ movies }) => {
-  console.log(movies);
-
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },

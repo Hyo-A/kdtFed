@@ -2,6 +2,7 @@ let initialState = {
   nowplayingMovie: {},
   topRatedMovie: {},
   upComingMovie: {},
+  genresMovie: [],
   loading: true,
 };
 
@@ -18,6 +19,7 @@ const movieReducer = (state = initialState, action) => {
         nowplayingMovie: payload.nowPlayingMovie,
         topRatedMovie: payload.topRatedMovie,
         upComingMovie: payload.upComingMovie,
+        genresMovie: payload.genresMovie,
         loading: false,
       };
 

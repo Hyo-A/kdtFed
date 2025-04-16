@@ -37,23 +37,24 @@ const Home = () => {
     useSelector((state) => state.movie);
 
   // console.log(nowplayingMovie, topRatedMovie, upComingMovie);
-  console.log(nowplayingMovie);
+  // console.log(nowplayingMovie);
 
   useEffect(() => {
     dispatch(movieAction.getMovies());
   }, []);
 
   if (loading) {
-    <Wrapper>
-      <ClipLoader cssOverride={override} size={150} />
-    </Wrapper>;
+    return (
+      <Wrapper>
+        <ClipLoader cssOverride={override} size={150} />
+      </Wrapper>
+    );
   } else {
     return (
       <>
         {nowplayingMovie.results && (
           <Banner movie={nowplayingMovie?.results[19]} />
         )}
-
         <Title className="hometitle">NowPlaying Movie</Title>
         <MovieSlide movies={nowplayingMovie} />
         <Title className="hometitle">TopRated Movie</Title>

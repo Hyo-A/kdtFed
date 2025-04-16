@@ -9,6 +9,15 @@ const Wrapper = styled.div`
   position: relative;
   color: var(--light-color);
   margin-bottom: 30px;
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
 `;
 
 const Img = styled.img`
@@ -20,7 +29,7 @@ const Img = styled.img`
 const BannerInfo = styled.div`
   position: absolute;
   top: 70%;
-  left: 80px;
+  left: 30px;
 `;
 const MovieTitle = styled.h1`
   font-size: 3rem;
@@ -35,7 +44,6 @@ const MovieOverview = styled.p`
 `;
 
 const Banner = ({ movie }) => {
-  console.log(movie);
   return (
     <Wrapper>
       <Img
