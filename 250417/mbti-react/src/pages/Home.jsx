@@ -45,6 +45,10 @@ const LogoImg = styled.div`
     height: 350px;
     border: 4px solid var(--light-color);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    @media screen and (max-width: 780px) {
+      width: 320px;
+      height: 320px;
+    }
   }
 `;
 
@@ -54,6 +58,13 @@ const Desc = styled.div`
   color: var(--light-color);
   padding: 11px 14px 8px 14px;
   border-radius: 4px;
+  @media screen and (max-width: 780px) {
+    max-width: 370px;
+    font-size: 1.5rem;
+    padding: 12px 12px 7px 12px;
+    line-height: 150%;
+    text-align: center;
+  }
 `;
 
 const Home = () => {

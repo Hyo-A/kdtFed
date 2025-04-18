@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, createSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { ProgressBar, Button } from "react-bootstrap";
 import { questionData } from "../assets/questiondata";
@@ -28,7 +28,15 @@ const Title = styled.div`
   font-family: "SBAggroB";
   margin-bottom: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  @media screen and (max-width: 780px) {
+    max-width: 340px;
+    font-size: 1.6rem;
+    padding: 16px 16px 11px 16px;
+    line-height: 150%;
+    text-align: center;
+  }
 `;
+// @media 여기서 쓰려면 원하는 컴포넌트 안에 넣어야함
 
 const ButtonGroup = styled.div`
   position: relative;
@@ -41,6 +49,14 @@ const ButtonGroup = styled.div`
     border-radius: 8px;
     padding: 50px;
   }
+  @media screen and (max-width: 780px) {
+    flex-direction: column;
+    & > button[type="button"] {
+      width: 340px;
+      height: 180px;
+      font-size: 1.6rem;
+    }
+  }
 `;
 
 const CatImg = styled.div`
@@ -52,6 +68,10 @@ const CatImg = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  @media screen and (max-width: 780px) {
+    bottom: -80px;
+    right: -20px;
   }
 `;
 
@@ -151,7 +171,20 @@ const Question = () => {
     if (questionData.length !== questionNo + 1) {
       setQuestionNo(questionNo + 1);
     } else {
-      navigate("/result");
+      const mbti = newScore.reduce(
+        (acc, curr) =>
+          acc +
+          [curr.score >= 2 ? curr.id.substring(0, 1) : curr.id.substring(1, 2)],
+        ""
+      );
+      // reduce는 누산기 함수 두번째 값으로 초기값을 줭야한다
+      // acc는 누적되어진 계산값, current는 신규값 acc의 초기값은 빈 문자열이다 누산기에서 acc가 계속 계산된다
+      navigate({
+        pathname: "/result",
+        search: `?${createSearchParams({ mbti: mbti })}`,
+      });
+      // path값과 쿼리값 내가 만든것을 넣을거란말임
+      // 쿼리값 만드는게 createsearchparams고 그 함수 안에는 key 와 value가 들어감
     }
   };
 
