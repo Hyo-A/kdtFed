@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { fetchCoins } from "../../api";
 
 const Container = styled.div`
   width: 100%;
@@ -85,41 +86,46 @@ interface CoinInterface {
 }
 
 const Coins = () => {
-  const [coins, setCoins] = useState<CoinInterface[]>([]);
-  // 나중에 값이 바뀐다면 coininterface의 배열의 형태로 coins에 들어갈꺼야
-  const [loading, setLoading] = useState(true);
+  // const [coins, setCoins] = useState<CoinInterface[]>([]);
+  // // 나중에 값이 바뀐다면 coininterface의 배열의 형태로 coins에 들어갈꺼야
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        "https://my-json-server.typicode.com/Divjason/coinlist/coins"
-      );
-      const json = await response.json();
-      // console.log(json);
-      // setCoins(json.slice(0, 30));
-      setCoins(json);
-      setLoading(false);
-    })();
-    // console.log(coins);
-    // 원래는 data라는 함수를 선언해서 호출한건데,
-    // 고차함수 형태로 선언부를 ()안에 싹 넣고 그 자체를 호출시켰다
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const response = await fetch(
+  //       "https://my-json-server.typicode.com/Divjason/coinlist/coins"
+  //     );
+  //     const json = await response.json();
+  //     // console.log(json);
+  //     // setCoins(json.slice(0, 30));
+  //     setCoins(json);
+  //     setLoading(false);
+  //   })();
+  //   // console.log(coins);
+  //   // 원래는 data라는 함수를 선언해서 호출한건데,
+  //   // 고차함수 형태로 선언부를 ()안에 싹 넣고 그 자체를 호출시켰다
+  // }, []);
+  const { isLoading, data } = useQuery<CoinInterface[]>({
+    queryKey: ["allCoins"],
+    queryFn: fetchCoins,
+  });
+  // usequery는 객체 형태로 키와 function갖고오면 된다는거
 
   return (
     <Container>
       <Header>
         <Title>Coins</Title>
       </Header>
-      {loading ? (
+      {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <CoinList>
-          {coins.map((coin) => (
+          {data?.map((coin) => (
             <Link key={coin.id} to={`/${coin.id}`} state={`${coin.name}`}>
               <Coin>
                 <Rank>🏆 Now Rank : {coin.rank}</Rank>
                 <Img
-                  src={`https://cryptoicon-api.pages.dev/api/icon/${coin.symbol.toLowerCase()}`}
+                  src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`}
                 />
                 {coin.name} &rarr;
                 <Detail>Detail information</Detail>

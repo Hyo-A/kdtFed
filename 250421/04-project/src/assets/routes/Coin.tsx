@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
 import {
   Link,
   Outlet,
+  useMatch,
   useParams,
   useLocation,
-  useMatch,
 } from "react-router-dom";
 import styled from "styled-components";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCoinInfo, fetchCoinPrice } from "../../api";
 
 const Container = styled.div`
   width: 100%;
@@ -157,37 +158,52 @@ interface PriceData {
 }
 
 const Coin = () => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const { coinId } = useParams<IRouteParams | any>();
   // coinId 자체가 존재하지 않을 수 있음, undefined는 안되어서 any타입을 썼더니 됐음
-  // console.log(coinId);
+  // // console.log(coinId);
   const { state } = useLocation() as IRocationState;
   // console.log(location);
   // 우리가 coins에서 Link to={`/${coin.id}`} state={`${coin.name}` 이케 state를 통해 보냈음
-  const [info, setInfo] = useState<InfoData | any>({});
-  const [priceInfo, setPriceInfo] = useState<PriceData | any>({});
+  // const [info, setInfo] = useState<InfoData | any>({});
+  // const [priceInfo, setPriceInfo] = useState<PriceData | any>({});
   const chartMatch = useMatch("/:coinId/chart");
   const priceMatch = useMatch("/:coinId/price");
   // usematch는 인자값으로 판달할 페이지가 들어가야함
 
-  useEffect(() => {
-    (async () => {
-      const infoData = await (
-        await fetch(
-          `https://my-json-server.typicode.com/Divjason/coinlist/coins/${coinId}`
-        )
-      ).json();
-      const priceData = await (
-        await fetch(
-          `https://my-json-server.typicode.com/Divjason/coinprice/coinprice/${coinId}`
-        )
-      ).json();
-      // console.log(infoData, priceData);
-      setInfo(infoData);
-      setPriceInfo(priceData);
-      setLoading(false);
-    })();
-  }, [coinId]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const infoData = await (
+  //       await fetch(
+  //         `https://my-json-server.typicode.com/Divjason/coinlist/coins/${coinId}`
+  //       )
+  //     ).json();
+  //     const priceData = await (
+  //       await fetch(
+  //         `https://my-json-server.typicode.com/Divjason/coinprice/coinprice/${coinId}`
+  //       )
+  //     ).json();
+  //     // console.log(infoData, priceData);
+  //     setInfo(infoData);
+  //     setPriceInfo(priceData);
+  //     setLoading(false);
+  //   })();
+  // }, [coinId]);
+
+  const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>({
+    queryKey: ["coinInfo", coinId],
+    queryFn: () => fetchCoinInfo(coinId),
+  });
+
+  const { isLoading: priceLoading, data: priceData } = useQuery<PriceData>({
+    queryKey: ["coinPrice", coinId],
+    queryFn: () => fetchCoinPrice(coinId),
+  });
+
+  console.log(priceData);
+
+  const loading = infoLoading || priceLoading;
+  // 이건 boolean값을 반환
 
   return (
     <Container>
@@ -205,19 +221,19 @@ const Coin = () => {
           <OverView>
             <OverViewItem>
               <span>🏆 Rank</span>
-              <span>{info?.rank}</span>
+              <span>{infoData?.rank}</span>
             </OverViewItem>
             <OverViewItem>
               <span>➰ Symbol</span>
-              <span>{info?.symbol}</span>
+              <span>{infoData?.symbol}</span>
             </OverViewItem>
             <OverViewItem>
               <span>❔ isActive</span>
-              <span>{info?.is_active ? "Yes" : "No"}</span>
+              <span>{infoData?.is_active ? "Yes" : "No"}</span>
             </OverViewItem>
           </OverView>
           <Description>
-            Information of {info?.type} type :
+            Information of {infoData?.type} type :
             <Desc>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta
               non consequuntur earum reiciendis facere, excepturi repellendus
@@ -232,15 +248,11 @@ const Coin = () => {
           <OverView>
             <OverViewItem>
               <span>💲 Total Supply</span>
-              <span>
-                {priceInfo.total_supply ? priceInfo.total_supply : "no_data"}
-              </span>
+              <span>{priceData?.total_supply}</span>
             </OverViewItem>
             <OverViewItem>
               <span>⭐ Max Supply</span>
-              <span>
-                {priceInfo.max_supply ? priceInfo.max_supply : "no_data"}
-              </span>
+              <span>{priceData?.max_supply}</span>
             </OverViewItem>
           </OverView>
           <Tabs>
