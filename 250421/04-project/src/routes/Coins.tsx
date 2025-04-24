@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { fetchCoins } from "../../api";
+import { fetchCoins } from "../api";
+import { Helmet } from "react-helmet";
+import { isDarkAtom } from "../atoms";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 const Container = styled.div`
   width: 100%;
@@ -75,6 +78,22 @@ const Img = styled.img`
 //   height: 25px;
 // `;
 
+const Button = styled.button`
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  padding: 8px 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  color: ${({ theme }) => theme.bgColor};
+  background: ${({ theme }) => theme.accentColor};
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
 interface CoinInterface {
   id: string;
   name: string;
@@ -86,6 +105,7 @@ interface CoinInterface {
 }
 
 const Coins = () => {
+  const isDark = useRecoilValue(isDarkAtom);
   // const [coins, setCoins] = useState<CoinInterface[]>([]);
   // // 나중에 값이 바뀐다면 coininterface의 배열의 형태로 coins에 들어갈꺼야
   // const [loading, setLoading] = useState(true);
@@ -105,6 +125,9 @@ const Coins = () => {
   //   // 원래는 data라는 함수를 선언해서 호출한건데,
   //   // 고차함수 형태로 선언부를 ()안에 싹 넣고 그 자체를 호출시켰다
   // }, []);
+  const setterFn = useSetRecoilState(isDarkAtom);
+  console.log(setterFn);
+  // isdarkatom 을 set할거고 setternfn이 함수로서 작동할거임
   const { isLoading, data } = useQuery<CoinInterface[]>({
     queryKey: ["allCoins"],
     queryFn: fetchCoins,
@@ -113,6 +136,12 @@ const Coins = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>Coins List</title>
+      </Helmet>
+      <Button onClick={() => setterFn((prev) => !prev)}>
+        {isDark ? "LightMode" : "DarkMode"}
+      </Button>
       <Header>
         <Title>Coins</Title>
       </Header>

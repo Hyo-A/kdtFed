@@ -13,7 +13,15 @@ export const fetchCoinInfo = (coinId: string | undefined) => {
 };
 
 export const fetchCoinPrice = (coinId: string | undefined) => {
-  return fetch(`${BASE_URL}/coinlist/coins/${coinId}`).then((response) =>
+  return fetch(`${BASE_URL}/coinprice/coinprice/${coinId}`).then((response) =>
     response.json()
   );
+};
+
+export const fetchCoinHistory = (coinId: string | undefined) => {
+  const endDate = Math.floor(Date.now() / 1000);
+  const startDate = endDate - 24 * 60 * 60 * 7;
+  return fetch(
+    `https://ohlcv-api.nomadcoders.workers.dev/?coinId=${coinId}&start=${startDate}&end=${endDate}`
+  ).then((response) => response.json());
 };

@@ -7,7 +7,8 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
-import { fetchCoinInfo, fetchCoinPrice } from "../../api";
+import { fetchCoinInfo, fetchCoinPrice } from "../api";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   width: 100%;
@@ -15,7 +16,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  margin-top: 60px;
 `;
 
 const Header = styled.header`
@@ -86,23 +87,24 @@ const Tab = styled.div<IsActive>`
   font-size: 2rem;
   font-weight: bold;
   margin-top: 20px;
-  background: ${({ isActive, theme }) =>
-    isActive ? theme.accentColor : theme.textColor};
-  color: ${({ isActive, theme }) => (isActive ? theme.bgColor : theme.bgColor)};
+  background: ${({ $isActive, theme }) =>
+    $isActive ? theme.accentColor : theme.textColor};
+  color: ${({ $isActive, theme }) =>
+    $isActive ? theme.bgColor : theme.bgColor};
   padding: 12px 20px;
   border-radius: 20px;
-  cursor: ${({ isActive }) => (isActive ? "auto" : "pointer")};
+  cursor: ${({ $isActive }) => ($isActive ? "auto" : "pointer")};
   transition: all 0.2s;
   &:hover {
-    background: ${({ isActive, theme }) =>
-      isActive ? theme.accentColor : theme.accentbColor};
-    color: ${({ isActive, theme }) =>
-      isActive ? theme.bgColor : theme.accentColor};
+    background: ${({ $isActive, theme }) =>
+      $isActive ? theme.accentColor : theme.accentbColor};
+    color: ${({ $isActive, theme }) =>
+      $isActive ? theme.bgColor : theme.accentColor};
   }
 `;
 
 interface IsActive {
-  isActive: boolean;
+  $isActive: boolean;
 }
 
 interface IRouteParams {
@@ -157,19 +159,25 @@ interface PriceData {
   };
 }
 
+// interface IsDark {
+//   isDark: boolean;
+// }
+
 const Coin = () => {
   // const [loading, setLoading] = useState(true);
-  const { coinId } = useParams<IRouteParams | any>();
   // coinId 자체가 존재하지 않을 수 있음, undefined는 안되어서 any타입을 썼더니 됐음
   // // console.log(coinId);
-  const { state } = useLocation() as IRocationState;
   // console.log(location);
   // 우리가 coins에서 Link to={`/${coin.id}`} state={`${coin.name}` 이케 state를 통해 보냈음
   // const [info, setInfo] = useState<InfoData | any>({});
   // const [priceInfo, setPriceInfo] = useState<PriceData | any>({});
+  const { coinId } = useParams<IRouteParams | any>();
+  const { state } = useLocation() as IRocationState;
   const chartMatch = useMatch("/:coinId/chart");
   const priceMatch = useMatch("/:coinId/price");
   // usematch는 인자값으로 판달할 페이지가 들어가야함
+
+  // const { isDark } = useOutletContext<IsDark>();
 
   // useEffect(() => {
   //   (async () => {
@@ -200,13 +208,18 @@ const Coin = () => {
     queryFn: () => fetchCoinPrice(coinId),
   });
 
-  console.log(priceData);
+  // console.log(infoData, priceData);
 
   const loading = infoLoading || priceLoading;
   // 이건 boolean값을 반환
 
+  // const isPricedata = priceData ? priceData?.max_supply : "no_data";
+
   return (
     <Container>
+      <Helmet>
+        <title>{state ? state : loading ? "Loading..." : infoData?.name}</title>
+      </Helmet>
       <Header>
         <Link to={"/"}>
           <Title>
@@ -248,19 +261,28 @@ const Coin = () => {
           <OverView>
             <OverViewItem>
               <span>💲 Total Supply</span>
-              <span>{priceData?.total_supply}</span>
+              {/* {priceData ? (
+                <span>{priceData?.total_supply}</span>
+              ) : (
+                <span>no-data</span>
+              )} */}
+              <span>
+                {priceData?.total_supply?.toLocaleString("ko-KR") ?? "No_Data"}
+              </span>
             </OverViewItem>
             <OverViewItem>
               <span>⭐ Max Supply</span>
-              <span>{priceData?.max_supply}</span>
+              <span>
+                {priceData?.max_supply?.toLocaleString("ko-KR") ?? "No_Data"}
+              </span>
             </OverViewItem>
           </OverView>
           <Tabs>
             <Link to={`/${coinId}/chart`}>
-              <Tab isActive={chartMatch !== null}>Chart</Tab>
+              <Tab $isActive={chartMatch !== null}>Chart</Tab>
             </Link>
             <Link to={`/${coinId}/price`}>
-              <Tab isActive={priceMatch !== null}>Price</Tab>
+              <Tab $isActive={priceMatch !== null}>Price</Tab>
             </Link>
           </Tabs>
         </>

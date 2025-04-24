@@ -1,12 +1,10 @@
 import "styled-components";
 
 declare module "styled-components" {
-  export interface DefaultTheme {
+  interface defaltTheme {
     bgColor: string;
     textColor: string;
     accentColor: string;
-    grayColor: string;
-    accentbColor: string;
     cardBgColor: string;
   }
 }
