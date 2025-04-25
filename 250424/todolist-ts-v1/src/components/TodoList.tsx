@@ -1,18 +1,51 @@
-import { useForm } from "react-hook-form";
+import styled from "styled-components";
+import CreateToDo from "./CreateToDo";
+import { useRecoilValue } from "recoil";
+// 값을 찾아오는 역할이라고..
+import { toDoState, toDoSelector } from "../atoms";
+import ToDo from "./ToDo";
+
+const H1 = styled.h1`
+  font-weight: bold;
+`;
+const H2 = styled.h1`
+  font-size: 12px;
+  font-weight: bold;
+`;
+
+const Hr = styled.hr`
+  border: 1px solid #000;
+`;
 
 const TodoList = () => {
-  const { register, watch } = useForm();
-  // register는 useform 안의 함수로 (name, options = {}) => { 이렇게 생김
-  console.log(register("toDo"), watch());
-  // 이케 watch랑 같이 씀
-  // 아래 input에 전개연산자에 register("toDo")를 넣었더니 toDo라는 객체 안에 있는걸 계속 watch하게 해준다
+  const toDos = useRecoilValue(toDoState);
+  const [toDo, doing, done] = useRecoilValue(toDoSelector);
 
   return (
     <div>
-      <form>
-        <input {...register("toDo")} type="text" placeholder="Write a Todo" />
-        <input type="submit" value={"Add"} />
-      </form>
+      <H1>Todo's List</H1>
+      <Hr />
+      <CreateToDo />
+      <H2>ToDo part</H2>
+      <ul>
+        {toDo.map((toDo) => (
+          <ToDo key={toDo.id} {...toDo} />
+        ))}
+      </ul>
+      <Hr />
+      <H2>ToDo part</H2>
+      <ul>
+        {doing.map((toDo) => (
+          <ToDo key={toDo.id} {...toDo} />
+        ))}
+      </ul>
+      <Hr />
+      <H2>ToDo part</H2>
+      <ul>
+        {done.map((toDo) => (
+          <ToDo key={toDo.id} {...toDo} />
+        ))}
+      </ul>
     </div>
   );
 };
