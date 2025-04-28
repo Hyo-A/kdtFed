@@ -29,7 +29,6 @@ const Button = styled.button`
   color: #fff;
   border: none;
   background: #000;
-  border-radius: 4px;
 `;
 
 const ToDo = ({ text, category, id }: IToDo) => {

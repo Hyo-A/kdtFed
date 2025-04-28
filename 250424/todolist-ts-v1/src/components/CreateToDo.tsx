@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
-import { toDoState } from "../atoms";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { toDoState, categoryState } from "../atoms";
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -27,9 +27,11 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
+  height: 26px;
   background: #000;
   color: #fff;
   margin-bottom: 20px;
+  border: none;
 `;
 
 interface IForm {
@@ -37,6 +39,7 @@ interface IForm {
 }
 
 const CreateToDo = () => {
+  const category = useRecoilValue(categoryState);
   const setToDos = useSetRecoilState(toDoState);
   // state와 비슷한 형태지만 atom 안의 관리중인 초기값을 씀
   // 근데 여기는 todos 필요없음 settodos만 필요해서 usesetrecoilstate 쓰기
@@ -50,7 +53,7 @@ const CreateToDo = () => {
 
   const handleValid = ({ toDo }: IForm) => {
     setToDos((oldToDos) => [
-      { id: Date.now(), text: toDo, category: "TODO" },
+      { id: Date.now(), text: toDo, category },
       ...oldToDos,
     ]);
     setValue("toDo", "");
