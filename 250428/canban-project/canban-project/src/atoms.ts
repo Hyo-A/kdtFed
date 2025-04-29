@@ -1,7 +1,23 @@
 //상태관리 recoil -> atoms
 import { atom } from "recoil";
 
-export const toDoState = atom({
+export interface IToDo {
+  id: number;
+  text: string;
+}
+
+interface IToDoState {
+  [key: string]: IToDo[];
+}
+
+export const toDoState = atom<IToDoState>({
   key: "toDo",
-  default: ["a", "b", "c", "d", "e", "f"],
+  default: {
+    todo: [],
+    doing: [],
+    done: [],
+    cat: [],
+    dog: [],
+    bird: [],
+  },
 });

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { minutesState, hourSelector } from "../atoms";
+import { useRecoilState } from "recoil";
+// import { minutesState, hourSelector } from "../atoms";
 
 /*--- 스타일 ---*/
 const Container = styled.div`
@@ -44,8 +44,18 @@ const ToDoList = () => {
   return (
     <Container>
       <Title>Canban Board</Title>
-      <Input value={minutes} type="number" placeholder="분" onChange={onMinutesChange} />
-      <Input value={hours} type="number" placeholder="시간" onChange={onHoursChange} />
+      <Input
+        value={minutes}
+        type="number"
+        placeholder="분"
+        onChange={onMinutesChange}
+      />
+      <Input
+        value={hours}
+        type="number"
+        placeholder="시간"
+        onChange={onHoursChange}
+      />
       <div>
         {minutes}분은 {hours}시간 입니다.
       </div>
