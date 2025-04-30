@@ -4,8 +4,8 @@ const Container = styled.div`
   margin-top: 60px;
 `;
 
-const Tv = () => {
-  return <Container>Tv</Container>;
+const Movies = () => {
+  return <Container>Movies</Container>;
 };
 
-export default Tv;
+export default Movies;

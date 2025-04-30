@@ -1,13 +1,17 @@
-import styled from "styled-components";
+import { useState, useEffect } from "react";
+import styled, { useTheme } from "styled-components";
+import { motion, useAnimation, useScroll } from "framer-motion";
+import { Link, useMatch } from "react-router-dom";
+// 얘는 a태그같은 역할을 할 수 있음
 
-const Nav = styled.div`
+const Nav = styled(motion.div)`
   width: 100%;
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px;
-  background: ${({ theme }) => theme.black.veryDark};
+  /* background: ${({ theme }) => theme.black.veryDark}; */
   color: ${({ theme }) => theme.blue};
   font-size: 1.8rem;
   position: fixed;
@@ -18,14 +22,15 @@ const Nav = styled.div`
 const Col = styled.div`
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 30px;
 `;
 
-const Logo = styled.svg`
+const Logo = styled(motion.svg)`
   width: 95px;
+  height: 60px;
   fill: ${({ theme }) => theme.blue};
   path {
-    stroke-width: 10px;
+    stroke-width: 4px;
     stroke: ${({ theme }) => theme.white.lighter};
   }
   cursor: pointer;
@@ -33,7 +38,7 @@ const Logo = styled.svg`
 
 const Items = styled.ul`
   display: flex;
-  gap: 20px;
+  gap: 16px;
   justify-content: center;
   align-items: center;
 `;
@@ -41,24 +46,26 @@ const Items = styled.ul`
 const Item = styled.li`
   display: flex;
   flex-direction: column;
-  position: relative;
+  align-items: center;
+  font-size: 1.6rem;
+  transition: opacity 0.3s;
   cursor: pointer;
-  transition: all 0.3s;
+  position: relative;
   &:hover {
     opacity: 0.7;
   }
 `;
 
-const Circle = styled.span`
+const Circle = styled(motion.span)`
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  position: absolute;
   left: 0;
   right: 0;
   bottom: -6px;
   margin: 0 auto;
   background: ${({ theme }) => theme.blue};
+  position: absolute;
 `;
 
 const Search = styled.form`
@@ -67,19 +74,109 @@ const Search = styled.form`
   align-items: center;
 `;
 
-const Magnifying = styled.svg`
+const Magnifying = styled(motion.svg)`
   width: 18px;
-  fill: ${({ theme }) => theme.white.darker};
+  fill: ${({ theme }) => theme.white.lighter};
   cursor: pointer;
 `;
 
-const Input = styled.input``;
+const Input = styled(motion.input)`
+  transform-origin: right center;
+  width: 160px;
+  height: 26px;
+  border-radius: 4px;
+  border: 1px solid ${({ theme }) => theme.white.darker};
+  margin-right: 10px;
+  &::placeholder {
+    font-size: 1rem;
+    opacity: 1;
+    padding: 10px;
+  }
+  &:focus {
+    outline: none;
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+`;
+
+const logoVariants = {
+  normal: { fillOpacity: 1 },
+  active: {
+    fillOpacity: [0, 0.5, 0, 0.7, 0.2, 0, 1, 0],
+    scale: [1, 0.7, 1],
+    transition: {
+      repeat: Infinity,
+    },
+  },
+};
 
 const Header = () => {
+  const [searchOpen, setSearchOpen] = useState(false);
+  const inputAnimation = useAnimation();
+  const navAnimation = useAnimation();
+  const magAnimation = useAnimation();
+
+  const toggleSearch = () => {
+    if (searchOpen) {
+      inputAnimation.start({
+        scaleX: 0,
+      });
+    } else {
+      inputAnimation.start({
+        scaleX: 1,
+      });
+    }
+    setSearchOpen((prev) => !prev);
+  };
+
+  const homeMatch = useMatch("/");
+  const tvMatch = useMatch("/tv");
+  const movieMatch = useMatch("/movie");
+  // tv라는 페이지에 들어오면 truthy한 값을 반환
+
+  const { scrollY } = useScroll();
+
+  const theme = useTheme();
+  console.log(theme);
+
+  const navVariants = {
+    top: { background: "rgba(0,0,0,1)", color: theme.white.darker },
+    scroll: { background: "rgba(0,0,0,0)", color: theme.blue },
+  };
+
+  const magVariants = {
+    top: { fill: theme.white.darker },
+    scroll: { fill: theme.blue },
+  };
+
+  useEffect(() => {
+    scrollY.on("change", () => {
+      if (scrollY.get() > 80) {
+        navAnimation.start("scroll");
+        magAnimation.start("scroll");
+      } else {
+        navAnimation.start("top");
+        magAnimation.start("top");
+      }
+    });
+  }, [scrollY]);
+  // console.log(scrollY);
+
   return (
-    <Nav>
+    <Nav
+      variants={navVariants}
+      animate={navAnimation}
+      initial={{
+        background: "rgba(0,0,0,1)",
+        color: "#fff",
+      }}
+    >
       <Col>
         <Logo
+          variants={logoVariants}
+          initial="normal"
+          whileHover="active"
           width="1024"
           height="466"
           viewBox="-10.62993 -10.62993 825.42186 375.59086"
@@ -88,21 +185,37 @@ const Header = () => {
         </Logo>
         <Items>
           <Item>
-            Home
-            <Circle />
+            <Link to="/">Home</Link>
+            {homeMatch && <Circle layoutId="circle" />}
           </Item>
           <Item>
-            Tv Shows
-            <Circle />
+            <Link to="/tv">Tv Shows</Link>
+            {tvMatch && <Circle layoutId="circle" />}
+          </Item>
+          <Item>
+            <Link to="/movie">Movies</Link>
+            {movieMatch && <Circle layoutId="circle" />}
           </Item>
         </Items>
       </Col>
       <Col>
         <Search>
-          <Magnifying viewBox="0 0 512 512">
+          <Input
+            animate={inputAnimation}
+            initial={{ scaleX: 0 }}
+            transition={{ type: "linear" }}
+            placeholder="Search for Movie"
+          />
+          <Magnifying
+            variants={magVariants}
+            animate={magAnimation}
+            onClick={toggleSearch}
+            initial={{ fill: theme.white.darker }}
+            transition={{ type: "linear" }}
+            viewBox="0 0 512 512"
+          >
             <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
           </Magnifying>
-          <Input />
         </Search>
       </Col>
     </Nav>

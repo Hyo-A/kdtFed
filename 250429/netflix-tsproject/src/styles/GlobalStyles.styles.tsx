@@ -32,5 +32,6 @@ export const GlobalStyles = createGlobalStyle`
   body {
     font-size: 1.6rem;
     font-family: "Source Sans 3", sans-serif;
+    height: 3000px;
   }
 `;
