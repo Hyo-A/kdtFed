@@ -4,7 +4,7 @@ const BASE_PATH = "https://api.themoviedb.org/3";
 export interface Imovie {
   adult: boolean;
   backdrop_path: string;
-  genre_ids: object;
+  genre_ids: number[];
   id: number;
   original_language: string;
   original_title: string;
@@ -29,8 +29,49 @@ export interface IGetMovieResult {
   total_results: number;
 }
 
+export interface IReviewsContents {
+  author: string;
+  author_details: {
+    name: string;
+    username: string;
+    avatar_path: string;
+    rating: number;
+  };
+  content: string;
+  created_at: string;
+  id: string;
+  updated_at: string;
+  url: string;
+}
+
 export const getMovies = () => {
   return fetch(
     `${BASE_PATH}/movie/now_playing?api_key=${API_KEY}&language=ko-kr&page=1&region=kr`
   ).then((response) => response.json());
 };
+
+export const searchContents = (keyword: string | null) => {
+  return fetch(`
+    ${BASE_PATH}/search/movie?api_key=${API_KEY}&query=${keyword}&include_adult=false&language=ko-kr&page=1
+    `).then((response) => response.json());
+};
+
+export const searchGenres = () => {
+  return fetch(`
+    ${BASE_PATH}/genre/movie/list?api_key=${API_KEY}&language=ko
+    `).then((response) => response.json());
+};
+
+export const getReviews = (movieId: number) => {
+  return fetch(`
+    ${BASE_PATH}/movie/${movieId}/reviews?api_key=${API_KEY}&page=1
+    `).then((response) => response.json());
+};
+
+export const getVideos = (movieId: number) => {
+  return fetch(`
+    ${BASE_PATH}/movie/${movieId}/videos?api_key=${API_KEY}
+    `).then((response) => response.json());
+};
+
+// https://api.themoviedb.org/3/movie/46498/videos?language=en-US'

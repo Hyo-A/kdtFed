@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import styled, { useTheme } from "styled-components";
 import { motion, useAnimation, useScroll } from "framer-motion";
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 // 얘는 a태그같은 역할을 할 수 있음
 
 const Nav = styled(motion.div)`
@@ -31,7 +32,7 @@ const Logo = styled(motion.svg)`
   fill: ${({ theme }) => theme.blue};
   path {
     stroke-width: 4px;
-    stroke: ${({ theme }) => theme.white.lighter};
+    stroke: ${({ theme }) => theme.blue};
   }
   cursor: pointer;
 `;
@@ -76,7 +77,7 @@ const Search = styled.form`
 
 const Magnifying = styled(motion.svg)`
   width: 18px;
-  fill: ${({ theme }) => theme.white.lighter};
+  /* fill: ${({ theme }) => theme.white.lighter}; */
   cursor: pointer;
 `;
 
@@ -111,38 +112,58 @@ const logoVariants = {
   },
 };
 
+interface IForm {
+  keyword: string;
+}
+
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const inputAnimation = useAnimation();
   const navAnimation = useAnimation();
   const magAnimation = useAnimation();
+  const main = useNavigate();
+  const { register, handleSubmit, setValue } = useForm<IForm>();
+  const onvalid = (data: IForm) => {
+    main(`/search?keyword=${data.keyword}`);
+    setValue("keyword", "");
+  };
 
   const toggleSearch = () => {
     if (searchOpen) {
       inputAnimation.start({
         scaleX: 0,
       });
+      magAnimation.start({
+        x: 160,
+      });
     } else {
       inputAnimation.start({
         scaleX: 1,
       });
+      magAnimation.start({
+        x: 0,
+      });
     }
     setSearchOpen((prev) => !prev);
+  };
+
+  const gotomain = () => {
+    main("/");
   };
 
   const homeMatch = useMatch("/");
   const tvMatch = useMatch("/tv");
   const movieMatch = useMatch("/movie");
   // tv라는 페이지에 들어오면 truthy한 값을 반환
+  const modalMatch = useMatch("/movies/*");
 
   const { scrollY } = useScroll();
 
   const theme = useTheme();
-  console.log(theme);
 
   const navVariants = {
     top: { background: "rgba(0,0,0,1)", color: theme.white.darker },
-    scroll: { background: "rgba(0,0,0,0)", color: theme.blue },
+    scroll: { background: "#ffffff", color: theme.blue },
   };
 
   const magVariants = {
@@ -174,6 +195,7 @@ const Header = () => {
     >
       <Col>
         <Logo
+          onClick={gotomain}
           variants={logoVariants}
           initial="normal"
           whileHover="active"
@@ -187,6 +209,7 @@ const Header = () => {
           <Item>
             <Link to="/">Home</Link>
             {homeMatch && <Circle layoutId="circle" />}
+            {modalMatch && <Circle layoutId="circle" />}
           </Item>
           <Item>
             <Link to="/tv">Tv Shows</Link>
@@ -199,23 +222,24 @@ const Header = () => {
         </Items>
       </Col>
       <Col>
-        <Search>
-          <Input
-            animate={inputAnimation}
-            initial={{ scaleX: 0 }}
-            transition={{ type: "linear" }}
-            placeholder="Search for Movie"
-          />
+        <Search onSubmit={handleSubmit(onvalid)}>
           <Magnifying
             variants={magVariants}
             animate={magAnimation}
             onClick={toggleSearch}
-            initial={{ fill: theme.white.darker }}
+            initial={{ fill: theme.white.darker, x: 160 }}
             transition={{ type: "linear" }}
             viewBox="0 0 512 512"
           >
             <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
           </Magnifying>
+          <Input
+            {...register("keyword", { required: true, minLength: 2 })}
+            animate={inputAnimation}
+            initial={{ scaleX: 0 }}
+            transition={{ type: "linear" }}
+            placeholder="Search for Movie"
+          />
         </Search>
       </Col>
     </Nav>

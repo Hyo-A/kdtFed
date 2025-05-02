@@ -9,7 +9,7 @@ const theme: DefaultTheme = {
   },
   white: {
     darker: "#e5e5e5",
-    lighter: "ffffff",
+    lighter: "#ffffff",
   },
 };
 

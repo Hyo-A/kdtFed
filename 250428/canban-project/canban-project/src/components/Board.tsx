@@ -70,7 +70,7 @@ const Container = styled.div`
 const Area = styled.div<IAreaProps>`
   width: 100%;
   border-radius: 8px;
-  padding: 8px;
+  padding: 6px;
   transition: background 0.3s;
   background: ${({ isDraggingOver, isDraggingFromThis, theme }) =>
     isDraggingOver

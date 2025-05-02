@@ -18,11 +18,11 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   :root {
-    --dark: #000,
-    --light: #fff,
-    --accent: #0099ff,
-    --sub:#9ad1ff,
-    --border: #c8d8e0,
+    --dark-color: #000,
+    --light-color: #fff,
+    --accent-color: #0099ff,
+    --rate-color:#9ad1ff,
+    --border-color: #d3e2e9,
   }
 
   html{
@@ -32,6 +32,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     font-size: 1.6rem;
     font-family: "Source Sans 3", sans-serif;
-    height: 3000px;
+    height: 100%;
+    background: ${({ theme }) => theme.black.darker};
   }
 `;

@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { useNavigate, useMatch } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { getMovies, IGetMovieResult } from "../api";
 import { makeImagePath } from "../utils";
 
 const Container = styled.div`
   width: 100%;
-  height: 200vh;
+  height: 100%;
   background: ${({ theme }) => theme.black.darker};
 `;
 
@@ -40,9 +41,9 @@ const Title = styled.h2`
 `;
 
 const OverView = styled.p`
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 200;
-  line-height: 1.4;
+  line-height: 1.5;
   width: 70%;
 `;
 
@@ -50,6 +51,21 @@ const Slider = styled.div`
   position: relative;
   top: -100px;
   width: 100%;
+`;
+
+const SliderButton = styled.button`
+  background: ${({ theme }) => theme.white.darker};
+  position: absolute;
+  right: 30px;
+  top: -40px;
+  padding: 8px 14px;
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  &:hover {
+    background: ${({ theme }) => theme.blue};
+  }
 `;
 
 const Row = styled(motion.div)`
@@ -61,23 +77,84 @@ const Row = styled(motion.div)`
   margin-bottom: 10px;
 `;
 
-const Box = styled(motion.div)`
-  background: ${({ theme }) => theme.white.darker};
+const Box = styled(motion.div)<IBgPhoto>`
+  background: url(${({ bgPhoto }) => bgPhoto}) center/cover no-repeat;
   width: auto;
   height: 200px;
+  cursor: pointer;
+  &:first-child {
+    transform-origin: left center;
+  }
+  &:last-child {
+    transform-origin: right center;
+  }
 `;
 
-const Info = styled.div``;
+const Info = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  h4 {
+    color: ${({ theme }) => theme.white.darker};
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+`;
 
-const ModalBox = styled.div``;
+const InfoVariants = {
+  hover: {
+    transition: { delay: 0.5, type: "tween" },
+    opacity: 1,
+  },
+};
 
-const Overlay = styled.div``;
+const ModalBox = styled(motion.div)`
+  left: 0;
+  right: 0;
+  width: 40vw;
+  height: 60vh;
+  margin: 0 auto;
+  z-index: 2;
+  background: ${({ theme }) => theme.black.lighter};
+  color: ${({ theme }) => theme.white.darker};
+  border-radius: 8px;
+  overflow: hidden;
+  position: absolute;
+`;
 
-const MovieCover = styled.div``;
+const Overlay = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+`;
 
-const MovieTitle = styled.h3``;
+const MovieCover = styled.div<IBgPhoto>`
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
+    url(${({ bgPhoto }) => bgPhoto}) center/cover no-repeat;
+`;
 
-const MovieOverView = styled.p``;
+const MovieTitle = styled.h3`
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 0 20px;
+`;
+
+const MovieOverView = styled.p`
+  margin: 20px;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  font-weight: 300;
+`;
 
 interface IBgPhoto {
   bgPhoto: string | undefined;
@@ -95,6 +172,11 @@ const rowVariants = {
   },
 };
 
+const boxVariants = {
+  normal: { scale: 1, transition: { type: "tween" } },
+  hover: { scale: 1.2, transition: { delay: 0.5, type: "tween" }, y: -40 },
+};
+
 const Home = () => {
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
@@ -103,24 +185,43 @@ const Home = () => {
     queryFn: getMovies,
   });
 
+  const history = useNavigate();
+
+  const ModalMatch = useMatch("/movies/:movieId");
+  // usematch는 인자값으로 어떠한 경로인지를 써줘야함
+  const { scrollY } = useScroll();
+
   const toggleLeaving = () => {
     setLeaving((prev) => !prev);
   };
   // 얘는 연타막기용으로 만든 leaving의 상태변화관리
 
   const increaseIndex = () => {
-    {
+    if (data) {
       if (leaving) return;
       toggleLeaving();
-      setIndex((prev) => prev + 1);
+      const totalMovies = data?.results.length - 2;
+      const maxIndex = Math.ceil(totalMovies / offset) - 1;
+      // ceil은 올리기
+      setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
   };
 
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
-  const offset = 6;
-  let page = 0;
+  const onBoxClicked = (movieId: number) => {
+    history(`/movies/${movieId}`);
+    // 얘 안에는 경로를 설정 해 줄 수 있다
+  };
 
-  console.log(arr.slice(page * offset, page * offset + offset));
+  const onOverlayClick = () => history("/");
+
+  const ClickedMovie =
+    ModalMatch?.params.movieId &&
+    data?.results.find((movie) => movie.id === +ModalMatch?.params.movieId!);
+
+  console.log(ClickedMovie);
+
+  const offset = 6;
+  // console.log(data);
 
   return (
     <Container>
@@ -128,14 +229,12 @@ const Home = () => {
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Banner
-            onClick={increaseIndex}
-            bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
-          >
+          <Banner bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}>
             <Title>{data?.results[0].title}</Title>
             <OverView>{data?.results[0].overview}</OverView>
           </Banner>
           <Slider>
+            <SliderButton onClick={increaseIndex}>Next</SliderButton>
             <AnimatePresence
               initial={false}
               onExitComplete={toggleLeaving}
@@ -149,12 +248,59 @@ const Home = () => {
                 exit="exit"
                 transition={{ type: "tween", duration: 1 }}
               >
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <Box key={i}>{i}</Box>
-                ))}
+                {data?.results
+                  .slice(2) // 두 번째 요소부터 끝까지 잘라냅니다.
+                  .slice(offset * index, offset * index + offset)
+                  .map((movie) => (
+                    <Box
+                      onClick={() => onBoxClicked(movie.id)}
+                      key={movie.id}
+                      initial={"normal"}
+                      whileHover={"hover"}
+                      variants={boxVariants}
+                      layoutId={movie.id + ""}
+                      bgPhoto={makeImagePath(movie.backdrop_path || "")}
+                    >
+                      <Info
+                        variants={InfoVariants}
+                        whileHover={"hover"}
+                        transition={{ type: "tween" }}
+                      >
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
+                  ))}
               </Row>
             </AnimatePresence>
           </Slider>
+          <AnimatePresence>
+            {ModalMatch ? (
+              <>
+                <Overlay
+                  onClick={onOverlayClick}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+                <ModalBox
+                  layoutId={ModalMatch.params.movieId}
+                  style={{ top: scrollY.get() + 80 }}
+                >
+                  {ClickedMovie && (
+                    <>
+                      <MovieCover
+                        bgPhoto={makeImagePath(
+                          ClickedMovie.backdrop_path || "",
+                          "w500"
+                        )}
+                      />
+                      <MovieTitle>{ClickedMovie.title}</MovieTitle>
+                      <MovieOverView>{ClickedMovie.overview}</MovieOverView>
+                    </>
+                  )}
+                </ModalBox>
+              </>
+            ) : null}
+          </AnimatePresence>
         </>
       )}
     </Container>
