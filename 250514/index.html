@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.scss" />
+    <link rel="stylesheet" href="./style.css" />
     <script defer src="./script.js"></script>
     <title>Reverse Engineering</title>
   </head>
@@ -11,8 +11,20 @@
     <div class="login-container">
       <h2>로그인</h2>
       <form id="loginForm">
-        <input id="username" type="text" required />
-        <input id="password" type="password" required />
+        <input
+          id="username"
+          type="text"
+          placeholder="아이디"
+          required
+          autocomplete="username"
+        />
+        <input
+          id="password"
+          type="password"
+          placeholder="비밀번호"
+          required
+          autocomplete="current-password"
+        />
         <input type="submit" value="로그인" />
       </form>
     </div>
