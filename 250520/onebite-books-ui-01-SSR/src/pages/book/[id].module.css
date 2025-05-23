@@ -1,0 +1,46 @@
+.cover_img_containers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  padding: 10px;
+  & > img {
+    max-height: 350px;
+    height: 100%;
+    z-index: 1;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+.subTitle {
+  font-size: 1.6rem;
+  color: var(--gray-color);
+}
+
+.author {
+  color: var(--gray-color);
+  font-size: 1.2rem;
+}
+
+.description {
+  margin-top: 20px;
+  padding: 16px;
+  font-size: 1.4rem;
+  line-height: 1.3;
+  background: var(--back-color);
+}

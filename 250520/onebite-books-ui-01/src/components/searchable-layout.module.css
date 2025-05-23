@@ -1,0 +1,29 @@
+.searchbar_container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 30px;
+  border: 1px solid var(--main2-color);
+  border-radius: 20px;
+  background: var(--light-color);
+  justify-content: space-between;
+  padding: 6px 20px;
+  transition: all 0.3s;
+  &:focus-within {
+    border: 1px solid var(--main-color);
+    background: var(--back-color);
+  }
+  & > input[type="text"] {
+    border: none;
+    background: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  & > button {
+    color: var(--main-color);
+    border: none;
+    background: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+}
