@@ -1,7 +1,8 @@
 import React from "react";
 import style from "./[id].module.css";
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import FetchOneBooks from "@/lib/fetch-one-books";
+import { useRouter } from "next/router";
 
 // const mockData = {
 //   id: 2,
@@ -15,19 +16,37 @@ import FetchOneBooks from "@/lib/fetch-one-books";
 //     "https://shopping-phinf.pstatic.net/main_4731061/47310617618.20240426090954.jpg",
 // };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getStaticPaths = () => {
+  return {
+    paths: [
+      { params: { id: "1" } },
+      { params: { id: "2" } },
+      { params: { id: "3" } },
+    ],
+    fallback: true,
+    // fallback : 옵션 3가지 (*존재하지 않는 페이지 없음 ) & blocking (*최초에는 없는 페이지로 간주하거나, 즉시 SSR 방식으로 변화해서 해당 페이지를 생성) & true(* 즉시생성 + 페이지만 미리 반환)
+    // fallback: "blocking",
+  };
+};
+
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const id = context.params?.id;
   const book = await FetchOneBooks(Number(id));
+  if (!book) {
+    return {
+      notFound: true,
+    };
+  }
   return {
     props: { book },
   };
 };
 
-const Book = ({
-  book,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Book = ({ book }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const router = useRouter();
+
+  if (router.isFallback) return "로딩중입니다...";
+
   if (!book) return "문제가 발생했습니다! 다시 실행해주세요.";
 
   const { title, subTitle, description, author, publisher, coverImgUrl } = book;
@@ -37,7 +56,7 @@ const Book = ({
         className={style.cover_img_containers}
         style={{ backgroundImage: `url("${coverImgUrl}")` }}
       >
-        <img src={coverImgUrl} />
+        <img src={coverImgUrl} alt="cover" />
       </div>
       <div className={style.title}>{title}</div>
       <div className={style.subTitle}>{subTitle}</div>

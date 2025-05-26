@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+  transition: all 0.3s;
+  &:hover {
+    background: var(--back-color);
+  }
+  & > img {
+    width: 100px;
+  }
+  & .title {
+    margin-top: 10px;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+  & .subtitle {
+    font-size: 1.4rem;
+  }
+  & .author {
+    color: var(--gray-color);
+    font-size: 1.2rem;
+    position: absolute;
+    bottom: 20px;
+  }
+}

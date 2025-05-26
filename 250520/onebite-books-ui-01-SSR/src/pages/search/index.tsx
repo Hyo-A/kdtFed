@@ -1,16 +1,24 @@
 import { ReactNode } from "react";
-import { useRouter } from "next/router";
 import SearchableLayout from "@/components/searchable-layout";
-import books from "@/mock/book.json";
 import BookItem from "@/components/book-item";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import fetchBooks from "@/lib/fetch-books";
 
-const Search = () => {
-  const router = useRouter();
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   const {
     query: { q },
-  } = router;
-  console.log(q);
+  } = context;
+  const books = await fetchBooks(q as string);
+  return {
+    props: { books },
+  };
+};
 
+const Search = ({
+  books,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <div>
       {books.map((book) => (

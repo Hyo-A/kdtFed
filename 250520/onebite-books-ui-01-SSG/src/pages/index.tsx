@@ -1,14 +1,13 @@
 import { ReactNode } from "react";
 import style from "./index.module.css";
 import SearchableLayout from "@/components/searchable-layout";
-import books from "@/mock/book.json";
 import BookItem from "@/components/book-item";
-import { InferGetServerSidePropsType } from "next";
+import { InferGetStaticPropsType } from "next";
 import fetchRandomBooks from "@/lib/fetch-random-books";
 import fetchBooks from "@/lib/fetch-books";
 // 유틸리티 타입이라네? 함수를 타입으로 지정하려고
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   // 아래 Home 이라는 컴포넌트 보다 무조건 먼저 실행되어서, 컴포넌트에 필요한 데이터를 불러오는 기능을 할 수 있는 함수
   const [recoBooks, allBooks] = await Promise.all([
     fetchRandomBooks(),
@@ -24,7 +23,7 @@ export const getServerSideProps = async () => {
 export default function Home({
   allBooks,
   recoBooks,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
       <section className={style.container}>
