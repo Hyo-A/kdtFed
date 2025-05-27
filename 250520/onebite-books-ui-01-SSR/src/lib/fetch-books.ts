@@ -1,7 +1,7 @@
 import { BookData } from "@/types";
 
 const fetchBooks = async (q?: string): Promise<BookData[]> => {
-  let url = `http://localhost:12345/book`;
+  let url = `https://onbite-books-server-self.vercel.app/book`;
 
   if (q) {
     url += `/search?q=${q}`;

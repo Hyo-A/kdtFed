@@ -2,6 +2,7 @@ import React from "react";
 import style from "./[id].module.css";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import FetchOneBooks from "@/lib/fetch-one-books";
+import Head from "next/head";
 
 // const mockData = {
 //   id: 2,
@@ -32,20 +33,28 @@ const Book = ({
 
   const { title, subTitle, description, author, publisher, coverImgUrl } = book;
   return (
-    <div>
-      <div
-        className={style.cover_img_containers}
-        style={{ backgroundImage: `url("${coverImgUrl}")` }}
-      >
-        <img src={coverImgUrl} />
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta property="og:image" content={coverImgUrl} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+      </Head>
+      <div>
+        <div
+          className={style.cover_img_containers}
+          style={{ backgroundImage: `url("${coverImgUrl}")` }}
+        >
+          <img src={coverImgUrl} alt="cover" />
+        </div>
+        <div className={style.title}>{title}</div>
+        <div className={style.subTitle}>{subTitle}</div>
+        <div className={style.author}>
+          {author} | {publisher}
+        </div>
+        <div className={style.description}>{description}</div>
       </div>
-      <div className={style.title}>{title}</div>
-      <div className={style.subTitle}>{subTitle}</div>
-      <div className={style.author}>
-        {author} | {publisher}
-      </div>
-      <div className={style.description}>{description}</div>
-    </div>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./[id].module.css";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import FetchOneBooks from "@/lib/fetch-one-books";
+import fetchOneBooks from "@/lib/fetch-one-books";
 import { useRouter } from "next/router";
 
 // const mockData = {
@@ -31,7 +31,7 @@ export const getStaticPaths = () => {
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const id = context.params?.id;
-  const book = await FetchOneBooks(Number(id));
+  const book = await fetchOneBooks(Number(id));
   if (!book) {
     return {
       notFound: true,
@@ -49,7 +49,8 @@ const Book = ({ book }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   if (!book) return "문제가 발생했습니다! 다시 실행해주세요.";
 
-  const { title, subTitle, description, author, publisher, coverImgUrl } = book;
+  const { id, title, subTitle, description, author, publisher, coverImgUrl } =
+    book;
   return (
     <div>
       <div
