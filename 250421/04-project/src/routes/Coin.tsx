@@ -39,6 +39,11 @@ const Title = styled.h1`
 const OverView = styled.div`
   width: 600px;
   color: ${({ theme }) => theme.bgColor};
+
+  @media (max-width: 640px) {
+    width: 100%;
+    padding: 0 20px;
+  }
 `;
 
 const OverViewItem = styled.div`
@@ -67,6 +72,10 @@ const Description = styled.div`
   font-weight: 600;
   background: ${({ theme }) => theme.accentColor};
   color: ${({ theme }) => theme.bgColor};
+
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 `;
 
 const Desc = styled.p`
@@ -79,6 +88,11 @@ const Tabs = styled.div`
   width: 600px;
   display: flex;
   gap: 10px;
+
+  @media (max-width: 620px) {
+    width: 100%;
+    padding: 20px;
+  }
 `;
 
 const Tab = styled.div<IsActive>`

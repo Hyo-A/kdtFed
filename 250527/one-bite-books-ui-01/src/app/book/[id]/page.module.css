@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  & > .cover_img_container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 20px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    & > img {
+      z-index: 1;
+      max-height: 350px;
+      height: 100%;
+    }
+  }
+  & > .title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  & > .subTitle {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  & > .author {
+    font-size: 1.2rem;
+    color: var(--footer-color);
+    margin-bottom: 10px;
+  }
+  & > .description {
+    font-size: 1.4rem;
+    background: var(--accent2-color);
+    line-height: 1.5;
+    padding: 20px;
+    border-radius: 4px;
+  }
+}

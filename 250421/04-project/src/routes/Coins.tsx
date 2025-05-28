@@ -23,6 +23,11 @@ const Header = styled.header`
 const CoinList = styled.ul`
   width: 760px;
   height: 500px;
+
+  @media (max-width: 760px) {
+    width: 100%;
+    padding: 20px;
+  }
 `;
 
 const Loader = styled.div`

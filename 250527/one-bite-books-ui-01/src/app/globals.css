@@ -13,3 +13,21 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  background: var(--accent2-color);
+}
+
+:root {
+  --light-color: #fff;
+  --dark-color: #996b39;
+  --border-color: #b8b8b8;
+  --accent-color: #ff9100;
+  --accent2-color: #fcf6ee;
+  --footer-color: #8d8d8d;
+}
