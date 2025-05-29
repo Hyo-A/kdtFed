@@ -20,14 +20,15 @@ html {
 
 body {
   font-size: 1.6rem;
-  background: var(--accent2-color);
+  background: url("/bluesky.jpg") center/cover no-repeat;
 }
 
 :root {
   --light-color: #fff;
-  --dark-color: #996b39;
+  --dark-color: #08375c;
   --border-color: #b8b8b8;
-  --accent-color: #ff9100;
-  --accent2-color: #fcf6ee;
+  --accent-color: #0060b9;
+  --accent1-color: #7dc0ff;
+  --accent2-color: #f3f9fc;
   --footer-color: #8d8d8d;
 }

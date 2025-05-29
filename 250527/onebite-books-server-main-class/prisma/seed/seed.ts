@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { seedData } from './data';
-import { removeWhitespace } from 'src/util/remove-whitepsace';
+import { removeWhitespace } from '../../src/util/remove-whitepsace';
 const prisma = new PrismaClient();
 
 async function truncateAllTable() {

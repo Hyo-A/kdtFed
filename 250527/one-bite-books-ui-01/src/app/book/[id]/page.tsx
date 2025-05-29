@@ -1,4 +1,11 @@
+import { notFound } from "next/navigation";
+
 import style from "./page.module.css";
+// import Image from "next/image";
+
+export const generateStaticParams = () => {
+  return [{ id: "1" }, { id: "2" }, { id: "3" }];
+};
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -8,6 +15,9 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   );
 
   if (!response.ok) {
+    if (response.status === 404) {
+      notFound();
+    }
     return <div>오류가 발생하였습니다...</div>;
   }
 

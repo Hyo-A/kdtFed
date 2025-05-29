@@ -1,15 +1,22 @@
 import BookItem from "@/app/components/book-item";
 import type { BookData } from "@/types";
+import delay from "@/util/delay";
+import { Suspense } from "react";
+import Loading from "./loading";
 
-const Page = async ({
-  searchParams,
-}: {
-  searchParams: Promise<{ q: string }>;
-}) => {
-  const { q } = await searchParams;
+// export const dynamic = "force-static";
+// export const dynamic = "error";
+
+const SearchResult = async ({ q }: { q: string }) => {
+  // const { q } = await searchParams;
+
+  await delay(1500);
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_KEY}/book/search?q=${q}`
+    `${process.env.NEXT_PUBLIC_API_SERVER_KEY}/book/search?q=${q}`,
+    {
+      cache: "force-cache",
+    }
   );
 
   if (!response.ok) {
@@ -24,6 +31,18 @@ const Page = async ({
         <BookItem key={book.id} {...book} />
       ))}
     </div>
+  );
+};
+
+const Page = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ q: string }>;
+}) => {
+  return (
+    <Suspense key={(await searchParams).q || ""} fallback={<Loading />}>
+      <SearchResult q={(await searchParams).q || ""} />
+    </Suspense>
   );
 };
 export default Page;
