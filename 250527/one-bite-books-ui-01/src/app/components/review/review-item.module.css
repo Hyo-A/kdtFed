@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 0;
+  & > .author {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  & > .content {
+    background: var(--accent2-color);
+    padding: 14px 10px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  & > .bottom_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 1.4rem;
+    color: var(--footer-color);
+    & > .btns {
+      display: flex;
+      gap: 6px;
+      & > .delete_btn {
+        cursor: pointer;
+        background: var(--accent-color);
+        color: var(--light-color);
+        padding: 8px 10px;
+        border-radius: 4px;
+        font-size: 1.2rem;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

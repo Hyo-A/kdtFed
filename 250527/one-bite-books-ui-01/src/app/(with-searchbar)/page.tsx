@@ -21,17 +21,21 @@ useSearchParams()는 런타임에 클라이언트에서만 사용할 수 있는 
 */
 
 const Allbooks = async () => {
-  await delay(3000);
+  await delay(2000);
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_KEY}/book`,
     {
       cache: "force-cache",
+      // cache: "no-store",
     }
   );
   const allBooks: BookData[] = await response.json();
+
   if (!response.ok) {
     return <div>오류가 발생했습니다...</div>;
   }
+
   return (
     <div>
       {allBooks.map((book) => (
@@ -43,19 +47,21 @@ const Allbooks = async () => {
 
 const Recobooks = async () => {
   await delay(1500);
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_SERVER_KEY}/book/random`,
     {
-      // cache: "force-cache",
       next: {
         revalidate: 3,
       },
     }
   );
-  const recoBooks: BookData[] = await response.json();
+
   if (!response.ok) {
     return <div>오류가 발생했습니다...</div>;
   }
+  const recoBooks: BookData[] = await response.json();
+
   return (
     <div>
       {recoBooks.map((book) => (
@@ -65,7 +71,8 @@ const Recobooks = async () => {
   );
 };
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+// 여기가 동적페이지여서 데이터를 끌고오지 못해서 에러페이지를 가지고 오지
 
 const Home = () => {
   return (

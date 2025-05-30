@@ -5,7 +5,7 @@ const BookItemSkeleton = () => {
   return (
     <div className={style.container}>
       <div className={style.cover_img}>
-        <img src="/bluesky.jpg" alt="sky" />
+        <img src="/bacl.jpg" alt="sky" />
       </div>
       <Loading2 />
     </div>

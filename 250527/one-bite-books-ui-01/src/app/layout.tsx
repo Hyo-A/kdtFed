@@ -6,7 +6,10 @@ import type { BookData } from "@/types";
 
 const Footer = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_KEY}/book`
+    `${process.env.NEXT_PUBLIC_API_SERVER_KEY}/book`,
+    {
+      cache: "force-cache",
+    }
   );
   if (!response.ok) {
     return <footer>제작 @God Hyo-Ba</footer>;

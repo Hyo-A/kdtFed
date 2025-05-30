@@ -1,17 +1,12 @@
 import { notFound } from "next/navigation";
-
 import style from "./page.module.css";
-// import Image from "next/image";
+import ReviewEditor from "@/app/components/review/review-editor";
+import ReviewItem from "@/app/components/review/review-item";
+import type { ReviewData } from "@/types";
 
-export const generateStaticParams = () => {
-  return [{ id: "1" }, { id: "2" }, { id: "3" }];
-};
-
-const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
-
+const BookTail = async ({ bookId }: { bookId: string }) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_KEY}/book/${id}`
+    `${process.env.NEXT_PUBLIC_API_SERVER_KEY}/book/${bookId}`
   );
 
   if (!response.ok) {
@@ -25,8 +20,8 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   const { title, subTitle, description, author, publisher, coverImgUrl } = book;
   return (
-    <>
-      <div className={style.container}>
+    <div className={style.container}>
+      <section>
         <div
           className={style.cover_img_container}
           style={{ backgroundImage: `url("${coverImgUrl}")` }}
@@ -39,8 +34,47 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           {author} | {publisher}
         </div>
         <div className={style.description}>{description}</div>
-      </div>
-    </>
+      </section>
+    </div>
+  );
+};
+
+const ReviewList = async ({ bookId }: { bookId: string }) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_KEY}/review/book/${bookId}`,
+    {
+      next: {
+        tags: [`review-${bookId}`],
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Review fetch failed : ${response.statusText}`);
+  }
+
+  const reviews: ReviewData[] = await response.json();
+
+  return (
+    <section>
+      {reviews.map((review) => (
+        <ReviewItem key={`review-item-${review.id}`} {...review} />
+      ))}
+    </section>
+  );
+};
+
+export const generateStaticParams = () => {
+  return [{ id: "1" }, { id: "2" }, { id: "3" }];
+};
+
+const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
+  return (
+    <div className={style.container}>
+      <BookTail bookId={(await params).id} />
+      <ReviewEditor bookId={(await params).id} />
+      <ReviewList bookId={(await params).id} />
+    </div>
   );
 };
 
