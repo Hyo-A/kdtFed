@@ -3,8 +3,10 @@ import BookItem from "../components/book-item";
 import style from "./page.module.css";
 import { BookData } from "@/types";
 import delay from "@/util/delay";
+import Image from "next/image";
 
 import BookListSkeleton from "../components/skeleton/book-list-skeleton";
+import { Metadata } from "next";
 
 // export const dynamic = "force-dynamic";
 /*
@@ -74,18 +76,34 @@ const Recobooks = async () => {
 // export const dynamic = "force-dynamic";
 // 여기가 동적페이지여서 데이터를 끌고오지 못해서 에러페이지를 가지고 오지
 
+export const metadata: Metadata = {
+  metadataBase: new URL("https://sky-one-bite.vercel.app/"),
+  title: "ONE BITE",
+  description: "ONE BITE에 등록된 도서를 만나보세요",
+  openGraph: {
+    title: "ONE BITE",
+    description: "ONE BITE에 등록된 도서를 만나보세요",
+    images: ["/thumbnail.jpg"],
+  },
+};
+
 const Home = () => {
   return (
     <div className={style.container}>
       <section>
-        <h3>🤍 지금 추천하는 도서</h3>
-
+        <h3>
+          <Image width={20} height={20} src="/blueheart.gif" alt="blue heart" />{" "}
+          지금 추천하는 도서
+        </h3>
         <Suspense fallback={<BookListSkeleton count={3} />}>
           <Recobooks />
         </Suspense>
       </section>
       <section>
-        <h3>🤍 등록된 모든 도서</h3>
+        <h3>
+          <Image width={20} height={20} src="/blueheart.gif" alt="blue heart" />{" "}
+          등록된 모든 도서
+        </h3>
         <Suspense fallback={<BookListSkeleton count={10} />}>
           <Allbooks />
         </Suspense>

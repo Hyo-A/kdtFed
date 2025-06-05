@@ -3,6 +3,7 @@ import type { BookData } from "@/types";
 import delay from "@/util/delay";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { Metadata } from "next";
 
 // export const dynamic = "force-static";
 // export const dynamic = "error";
@@ -32,6 +33,23 @@ const SearchResult = async ({ q }: { q: string }) => {
       ))}
     </div>
   );
+};
+
+export const generateMetadata = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}): Promise<Metadata> => {
+  const { q } = await searchParams;
+  return {
+    title: `${q} : ONE-BITE search`,
+    description: `${q}의 검색 결과 입니다`,
+    openGraph: {
+      title: `${q} : ONE-BITE search`,
+      description: `${q}의 검색 결과 입니다`,
+      images: ["/thumbnail.jpg"],
+    },
+  };
 };
 
 const Page = async ({

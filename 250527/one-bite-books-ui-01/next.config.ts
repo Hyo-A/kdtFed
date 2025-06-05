@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
+  images: {
+    domains: ["shopping-phinf.pstatic.net", "encrypted-tbn0.gstatic.com"],
+  },
 };
 
 export default nextConfig;

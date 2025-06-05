@@ -1,19 +1,23 @@
 .container {
   max-width: 600px;
-  min-height: 100vh;
+  min-height: calc(100vh - 40px);
   margin: 20px auto;
   background: var(--light-color);
-  box-shadow: 0 8px 20px rgba(8, 154, 238, 0.5);
-  padding: 15px;
+  box-shadow: 0 8px 20px rgba(52, 92, 116, 0.5);
+  padding: 30px;
   border-radius: 20px;
   & > header {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: bold;
     height: 60px;
     line-height: 60px;
     color: var(--accent-color);
-    & > a > img {
-      width: 30px;
+    & > a {
+      display: flex;
+      gap: 6px;
+      & > .img {
+        margin-top: 14px;
+      }
     }
   }
   & > footer {

@@ -1,0 +1,7 @@
+.navigate {
+  padding: 2px 10px;
+  border-radius: 30px;
+  background: var(--accent-color);
+  margin-right: 10px;
+  color: var(--light-color);
+}

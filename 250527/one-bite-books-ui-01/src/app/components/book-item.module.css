@@ -6,9 +6,6 @@
   &:hover {
     background: var(--accent2-color);
   }
-  & > img {
-    width: 80px;
-  }
   & > div {
     & > .title {
       font-weight: 700;

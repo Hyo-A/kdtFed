@@ -20,14 +20,14 @@ html {
 
 body {
   font-size: 1.6rem;
-  background: url("/bluesky.jpg") center/cover no-repeat;
+  background: url("/bluesky.gif") center/cover no-repeat;
 }
 
 :root {
   --light-color: #fff;
   --dark-color: #08375c;
   --border-color: #b8b8b8;
-  --accent-color: #0060b9;
+  --accent-color: #296791;
   --accent1-color: #7dc0ff;
   --accent2-color: #f3f9fc;
   --footer-color: #8d8d8d;

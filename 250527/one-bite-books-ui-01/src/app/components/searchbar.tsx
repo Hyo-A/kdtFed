@@ -7,7 +7,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 // useSearchParams()는 Next.js의 next/navigation 훅이고, 서버 컴포넌트에서는 사용할 수 없습니다. 오직 클라이언트 컴포넌트 내에서만 사용할 수 있습니다.
 // "use client";를 썼지만 Next.js는 useSearchParams()가 CSR (클라이언트 사이드 렌더링) 상황을 유도하기 때문에, Suspense boundary로 감싸야 합니다.
-
+import { FaSearch } from "react-icons/fa";
 import style from "./searchbar.module.css";
 
 const Searchbar = () => {
@@ -48,7 +48,9 @@ const Searchbar = () => {
           onChange={onChangeSearch}
           onKeyDown={onKeyDown}
         />
-        <input onClick={onSubmit} type="submit" value="🔍" />
+        <button onClick={onSubmit}>
+          <FaSearch />
+        </button>
       </div>
     </Suspense>
   );

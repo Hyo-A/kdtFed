@@ -3,6 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 import style from "./layout.module.css";
 import type { BookData } from "@/types";
+import Image from "next/image";
 
 const Footer = async () => {
   const response = await fetch(
@@ -25,20 +26,31 @@ const Footer = async () => {
   );
 };
 
-const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
+const RootLayout = ({
+  children,
+  modal,
+}: Readonly<{ children: ReactNode; modal: ReactNode }>) => {
   return (
     <html>
       <body>
         <div className={style.container}>
           <header>
             <Link href={"/"}>
-              <img src="/blueheart.gif" alt="blue heart" />
-              ONE BITE BOOKS
+              <Image
+                src="/blueheart.gif"
+                alt="blue heart"
+                width={30}
+                height={30}
+                className={style.img}
+              />
+              <h4>ONE BITE BOOKS</h4>
             </Link>
           </header>
           <main>{children}</main>
           <Footer />
         </div>
+        {modal}
+        <div id="modal-root"></div>
       </body>
     </html>
   );
