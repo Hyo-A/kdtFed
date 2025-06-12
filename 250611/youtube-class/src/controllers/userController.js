@@ -69,7 +69,9 @@ export const postLogin = async (req, res) => {
       errorMessage: "Wrong password",
     });
   }
-  return res.end();
+  req.session.loggedIn = true;
+  req.session.user = user;
+  return res.redirect("/");
 };
 
 export const logout = (req, res) => {
@@ -78,4 +80,16 @@ export const logout = (req, res) => {
 
 export const see = (req, res) => {
   return res.send("See User");
+};
+
+export const startGithubLogin = (req, res) => {
+  const baseUrl = "https://github.com/login/oauth/authorize";
+  const config = {
+    clientId: "Ov23liQ4CeacdAeO9IxB",
+    allow_signup: false,
+    scope: "read:user read:email",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  return res.redirect(finalUrl);
 };
