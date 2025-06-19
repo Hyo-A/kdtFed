@@ -1,0 +1,22 @@
+.search_form {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  margin: 0 auto;
+  position: relative;
+  input {
+    &[type="text"] {
+      padding: 18px 20px;
+    }
+    &[type="submit"] {
+      width: auto;
+      margin-top: 14px;
+      background: $red;
+      border: 1px solid $red;
+      position: absolute;
+      right: 5px;
+      top: -10px;
+      cursor: pointer;
+    }
+  }
+}

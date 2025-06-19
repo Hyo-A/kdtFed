@@ -1,0 +1,38 @@
+extends base.pug
+
+block content
+  div#videoContainer
+    video(src="/" + video.fileUrl controls)
+    div#videoControls.videoControls
+      //- button#play Play 
+      //- button#mute Mute 
+      //- input(type="range" step="0.1" value="0.5" min="0" max="1")#volume
+      div.videoControls_Play
+        span#play.videoControls_PlayBtn
+          i.fas.fa-play
+        div.videoControls_time
+          span#currentTime 00:00
+          span  &nbsp;/&nbsp; 
+          span#totalTime 00:00
+      div.videoControls_timeline
+        input(type="range" step="1" value="0" min="0")#timeline
+      div.videoControls_volume
+        input(type="range" step="0.1" value="0.5" min="0" max="1")#volume
+        span#mute 
+          i.fas.fa-volume-high
+      div 
+        button#fullScreen Enter Full Screen
+  //- div   
+  //-   p=video.description
+  //-   small=video.createdAt
+  //-   br
+  //-   small Uploaded by 
+  //-     a(href=`/users/${video.owner._id}`) #{video.owner.name}
+  //-   h3 #{video.views} #{video.views === 1 ? "view" : "views"}
+  //- if String(video.owner._id) === String(loggedInUser._id)
+  //-   a(href=`${video.id}/edit`) Edit Video &rarr;
+  //-   br
+  //-   a(href=`${video.id}/delete`) Delete Video &rarr;
+
+block scripts 
+  script(src="/assets/js/videoPlayer.js")

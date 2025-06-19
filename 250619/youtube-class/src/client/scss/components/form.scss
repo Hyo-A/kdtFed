@@ -1,0 +1,76 @@
+form {
+  margin-bottom: 60px;
+  background: rgba($color: $dark, $alpha: 0.3);
+  &.login_form,
+  &.join_form,
+  &.editprofile_form,
+  &.upload_form {
+    input {
+      width: 40%;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 12px;
+    }
+  }
+  &.editprofile_form,
+  &.upload_form {
+    background: rgba($color: $light, $alpha: 0.1);
+    width: 40%;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    input {
+      width: 100%;
+    }
+  }
+  input {
+    width: 100%;
+    background: $dark;
+    color: $light;
+    border: 1px solid $light;
+    border-radius: 4px;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    padding: 14px 20px;
+    &[type="submit"] {
+      background: $accent;
+      border: 1px solid $accent;
+      cursor: pointer;
+      transition: all 0.3s;
+      &:hover {
+        background: $dark;
+        border: 1px solid $accent;
+      }
+    }
+    &::placeholder {
+      color: rgba($color: $light, $alpha: 0.7);
+      opacity: 1;
+      transition: all 0.3s;
+    }
+    &:focus {
+      outline: none;
+      &::placeholder {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.social_btn {
+  border-radius: 4px;
+  font-size: 1.8rem;
+  padding: 14px 20px;
+}
+
+.profile_cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  .profile_img {
+    border-radius: 50%;
+    text-align: center;
+    border: 2px solid $light;
+  }
+}

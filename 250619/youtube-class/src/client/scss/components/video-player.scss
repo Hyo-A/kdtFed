@@ -1,0 +1,6 @@
+.videoControls {
+  display: none;
+  &.showing {
+    display: block;
+  }
+}

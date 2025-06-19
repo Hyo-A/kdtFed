@@ -1,0 +1,15 @@
+.social_login {
+  border-top: 1px solid rgba($color: $light, $alpha: 0.4);
+  margin-top: 40px;
+  padding-top: 40px;
+  position: relative;
+  width: 640px;
+  margin: 0 auto;
+  .social_btn-github {
+    font-size: 1.6rem;
+    background: #24883b;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

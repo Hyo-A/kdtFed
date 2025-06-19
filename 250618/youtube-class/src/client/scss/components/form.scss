@@ -1,0 +1,41 @@
+form {
+  margin: 40px;
+  &.login_form {
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 12px;
+    input {
+      width: 100%;
+      background: $dark;
+      color: $light;
+      border-radius: 4px;
+      font-size: 1.8rem;
+      padding: 14px 20px;
+      margin-bottom: 12px;
+      border: 1px solid $light;
+      &[type="submit"] {
+        background: $red;
+        border: 1px solid $red;
+      }
+
+      &::placeholder {
+        color: rgba($color: $light, $alpha: 0.7);
+        opacity: 1;
+        transition: all 0.3s;
+      }
+      &:focus {
+        outline: none;
+        &::placeholder {
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  .social_btn {
+    font-size: 1.8rem;
+    padding: 14px 20px;
+    border-radius: 4px;
+  }
+}

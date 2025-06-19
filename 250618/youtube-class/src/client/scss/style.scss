@@ -1,0 +1,21 @@
+// config
+@import "./config/_variable";
+@import "./config/_reset";
+
+// components
+@import "./components/header.scss";
+@import "./components/footer.scss";
+@import "./components/video.scss";
+@import "./components/shared.scss";
+@import "./components/form.scss";
+@import "./components/social-login.scss";
+
+// screens
+@import "./screens/search.scss";
+@import "./screens/home.scss";
+
+main {
+  max-width: 1200px;
+  width: 100%;
+  margin: 40px auto;
+}

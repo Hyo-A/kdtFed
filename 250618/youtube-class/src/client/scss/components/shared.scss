@@ -1,0 +1,13 @@
+.empty_message {
+  width: 100vw;
+  display: inline-block;
+  text-align: start;
+  font-size: 1.8rem;
+  margin-bottom: 40px;
+}
+
+.video_grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px;
+}
